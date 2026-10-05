@@ -23,12 +23,12 @@ Jeden Morgen kommt eine kurze Mail mit Neuschnee, Schneehöhe und Temperatur fü
 - **Passender Skill:** `bericht-zeitgesteuert`
 - **Einstieg:** „Ich möchte jeden Morgen einen kurzen Schneebericht für drei Skigebiete per Mail bekommen. Hilf mir, meine Idee zu klären.“
 
-## 3. Partnerbetriebe mit Google abgleichen
+## 3. Ausflugsziele für eine Reise prüfen
 
-Für ein Partnerhotel holt der Ablauf Adresse, Telefon, Öffnungszeiten und Bewertung aus Google (über DataForSEO) und legt sie in deine Tabelle.
+Für die Ausflugsziele einer geplanten Reise, etwa Bergbahn, Museum und Restaurant am Zielort, holt der Ablauf Adresse, Öffnungszeiten und Bewertung aus Google (über DataForSEO) und legt sie in deine Tabelle.
 
-- **Worauf du achtest:** Jede Abfrage kostet Geld. Teste mit genau einem Betrieb. Gib das Land mit, sonst sucht der Dienst in Deutschland.
-- **Einstieg:** „Ich möchte für ein Partnerhotel die Angaben aus Google holen: Adresse, Telefon und Bewertung. Hilf mir, meine Idee zu klären.“
+- **Worauf du achtest:** Jede Abfrage kostet Geld. Teste mit genau einem Ziel. Gib Ort und Land mit, sonst sucht der Dienst in Deutschland.
+- **Einstieg:** „Ich möchte für die Ausflugsziele einer Reise die Angaben aus Google holen: Adresse, Öffnungszeiten und Bewertung. Hilf mir, meine Idee zu klären.“
 
 ## 4. Bewertungen zusammenfassen
 
@@ -54,7 +54,7 @@ Du lädst eine Liste hoch. Der Ablauf findet fehlende Angaben und doppelte Eintr
 
 ## 7. Sprachnotiz wird Bericht
 
-Du sprichst eine kurze Notiz ein, etwa nach einem Besuch bei einem Partnerbetrieb. Daraus wird ein ordentlicher kurzer Bericht.
+Du sprichst eine kurze Notiz ein, etwa nach einem Termin vor Ort. Daraus wird ein ordentlicher kurzer Bericht.
 
 - **Worauf du achtest:** Zum Testen sprichst du selbst etwas ein, andere Menschen nimmst du heute nicht auf. Die Aufnahme bleibt in n8n gespeichert und ist für alle mit dem gemeinsamen Login sichtbar.
 - **Passender Skill:** `meetingnotizen`
