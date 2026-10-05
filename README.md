@@ -12,8 +12,8 @@ Dein Projekt für die Schulung bei E&P Reisen. Hier liegen deine Ergebnisse: dei
 
 ## So startest du
 
-1. Öffne dein Projekt über den Knopf mit deinem Kürzel auf der Schulungsseite friedemannschuetz.de.
-2. Schreib die erste Nachricht mit deinem Kürzel, zum Beispiel: **TN3: Los geht's**
+1. Öffne dein Projekt über den Knopf mit deinem Namen auf der Schulungsseite friedemannschuetz.de.
+2. Schreib die erste Nachricht: **KUERZEL: Los geht's**
 3. Claude begrüßt dich und prüft die Verbindung. Steht da „Deine n8n ist verbunden“, passt alles.
 4. Schreib: **Hilf mir, meine Idee zu klären.** Claude stellt dir Fragen, immer eine nach der anderen. Am Ende steht dein Steckbrief.
 5. Stell neben dem Eingabefeld auf **Plan** und schreib: **Grill mich zu meinem Steckbrief.** Claude stellt höchstens fünf Fragen und zeigt dir dann den Bauplan.
@@ -24,11 +24,12 @@ Klemmt etwas? Schreib einfach: **ich hänge**.
 
 ## Dein Kürzel
 
-Dein Kürzel steht in der Datei `teilnehmer.md`, zum Beispiel TN3. Alles, was du in n8n baust, trägt es im Namen:
+Dein Kürzel ist dein Vorname: **KUERZEL**. Es steht auch in der Datei `teilnehmer.md`. Alles, was du in n8n baust, trägt es im Namen:
 
-- Ablauf (Workflow): `TN3: Anfragen sortieren`
-- Tabelle: `tn3_anfragen`
-- Adresse für Webhook oder Formular: `tn3-anfragen`
+- Ablauf (Workflow): `KUERZEL: Anfragen sortieren`
+- Tabelle: `KLEIN_anfragen`
+- Adresse für Webhook oder Formular: `KLEIN-anfragen`
+- Ordner in n8n: `KUERZEL`, im Ordner „KI-Schulung“
 
 ## Deine Regeln
 

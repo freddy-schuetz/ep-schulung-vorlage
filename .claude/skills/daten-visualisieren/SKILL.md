@@ -31,7 +31,7 @@ Das Sprachmodell sieht **nie** die Rohdatei und rechnet **nie**. Es bekommt ein 
 Versionen wie im Beispiel-Workflow.
 
 1. **Eingang**
-   - `n8n-nodes-base.formTrigger` (2.5): ein Feld `fieldType: file`, `multipleFiles: false`, `acceptFileTypes: ".csv,.xlsx"`, `requiredField: true`. `fieldLabel` und `fieldName` gleich wählen (Beispiel: `Datei`). Pfad mit Kürzel unter `options.path`, etwa `tn3-csv-auswertung`. Nach dem ersten Test im Output unter **Binary** kontrollieren, wie das Binärfeld heißt.
+   - `n8n-nodes-base.formTrigger` (2.5): ein Feld `fieldType: file`, `multipleFiles: false`, `acceptFileTypes: ".csv,.xlsx"`, `requiredField: true`. `fieldLabel` und `fieldName` gleich wählen (Beispiel: `Datei`). Pfad mit Kürzel unter `options.path`, etwa `anna-csv-auswertung`. Nach dem ersten Test im Output unter **Binary** kontrollieren, wie das Binärfeld heißt.
    - Testeingang ohne Datei: `n8n-nodes-base.manualTrigger` (1) → `n8n-nodes-base.set` (3.4) mit CSV-Text → `n8n-nodes-base.convertToFile` (1.1), `operation: toText`, `sourceProperty: csv`, `binaryPropertyName: Datei`, `options.fileName`.
 2. **Weiche** `n8n-nodes-base.if` (2.3): `{{ ($binary.Datei?.fileName ?? '').toLowerCase() }}` endet auf `.xlsx`.
 3. **Lesen** `n8n-nodes-base.extractFromFile` (1.1)

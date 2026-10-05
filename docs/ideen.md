@@ -25,7 +25,7 @@ Jeden Morgen kommt eine kurze Mail mit Neuschnee, Schneehöhe und Temperatur fü
 
 ## 3. Partnerbetriebe mit Google abgleichen
 
-Für ein Partnerhotel holt der Ablauf Adresse, Telefon, Öffnungszeiten und Bewertung aus Google (über die Google-Suche mit SerpAPI) und legt sie in deine Tabelle.
+Für ein Partnerhotel holt der Ablauf Adresse, Telefon, Öffnungszeiten und Bewertung aus Google (über DataForSEO) und legt sie in deine Tabelle.
 
 - **Worauf du achtest:** Jede Abfrage kostet Geld. Teste mit genau einem Betrieb. Gib das Land mit, sonst sucht der Dienst in Deutschland.
 - **Einstieg:** „Ich möchte für ein Partnerhotel die Angaben aus Google holen: Adresse, Telefon und Bewertung. Hilf mir, meine Idee zu klären.“

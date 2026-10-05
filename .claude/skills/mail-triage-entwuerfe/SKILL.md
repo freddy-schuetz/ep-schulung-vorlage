@@ -17,16 +17,16 @@ Ziel: Jede Anfrage bekommt eine Kategorie aus einer festen Liste und, wo sinnvol
 Nicht passend: vollautomatischer Versand ohne Prüfung, verbindliche Angebote mit Preisen und Verfügbarkeit.
 
 ## Empfohlener Aufbau (Knotenkette)
-1. Einstieg zum Testen: `n8n-nodes-base.manualTrigger` plus `n8n-nodes-base.set` (`mode: "raw"`, Array `beispielmails` mit `absender`, `betreff`, `text`) plus `n8n-nodes-base.splitOut`. Oder ein Formular (`n8n-nodes-base.formTrigger`, Pfad mit Kürzel wie `tn3-anfragen`, Felder Absender, Betreff, Text), in das die Person eine ausgedachte Anfrage einfügt.
+1. Einstieg zum Testen: `n8n-nodes-base.manualTrigger` plus `n8n-nodes-base.set` (`mode: "raw"`, Array `beispielmails` mit `absender`, `betreff`, `text`) plus `n8n-nodes-base.splitOut`. Oder ein Formular (`n8n-nodes-base.formTrigger`, Pfad mit Kürzel wie `anna-anfragen`, Felder Absender, Betreff, Text), in das die Person eine ausgedachte Anfrage einfügt.
 2. HTML-Mails: `n8n-nodes-base.markdown` (`mode: "htmlToMarkdown"`) vor der KI, sonst frisst HTML Tokens.
 3. `@n8n/n8n-nodes-langchain.informationExtractor` (`schemaType: "manual"`) mit `kategorie` als `enum` (zum Beispiel Buchungsanfrage, Auskunft, Beschwerde, Sonstiges) plus `sprache`, `anliegen_kurz`, `zeitraum`, `personen`, `offene_punkte[]`. Dazu der Modell-Node zum KI-Credential aus `CLAUDE.md` an `ai_languageModel`.
    Alternative nur fürs Routing: `@n8n/n8n-nodes-langchain.textClassifier` (ein Ausgang je Kategorie, Option `fallback: "other"`). Er schreibt die Kategorie nicht ins Item, also je Ausgang ein Set-Knoten mit `kategorie`.
 4. `n8n-nodes-base.set` „Mail + Einordnung“: Mailfelder über `$('Mails einzeln').item.json...` (paired item) plus `$json.output.*`. Ab hier trägt jedes Item alles, was später gebraucht wird.
 5. `n8n-nodes-base.if` (oder `n8n-nodes-base.switch` bei mehr Wegen): Beschwerde, Spam und Presse gehen ohne KI-Entwurf an Menschen (`n8n-nodes-base.set` mit `status`, `prioritaet`).
 6. `@n8n/n8n-nodes-langchain.chainLlm` (`promptType: "define"`, `hasOutputParser: true`) mit `@n8n/n8n-nodes-langchain.outputParserStructured` (`betreff`, `antwort`, `bitte_ergaenzen[]`) und eigenem Modell-Node.
-   Fakten (Bürozeiten, Gepäck, Leistungen, Links) stehen im Prompt oder kommen aus einer eigenen Data Table wie `tn3_fakten` (`operation: "get"`, `returnAll: true`), zusammengefasst mit `n8n-nodes-base.aggregate`.
+   Fakten (Bürozeiten, Gepäck, Leistungen, Links) stehen im Prompt oder kommen aus einer eigenen Data Table wie `anna_fakten` (`operation: "get"`, `returnAll: true`), zusammengefasst mit `n8n-nodes-base.aggregate`.
 7. `n8n-nodes-base.set` „Ergebnis zur Prüfung“: Kategorie, Absender, Originalbetreff, Entwurf, offene Stellen, `status`.
-8. Ablage: eine eigene Data Table wie `tn3_anfragen` (`operation: "insert"`) als Prüfliste. Wer mag, schickt sich das Ergebnis per Mail (SMTP) an die eigene Adresse.
+8. Ablage: eine eigene Data Table wie `anna_anfragen` (`operation: "insert"`) als Prüfliste. Wer mag, schickt sich das Ergebnis per Mail (SMTP) an die eigene Adresse.
 
 ## Heute und später
 

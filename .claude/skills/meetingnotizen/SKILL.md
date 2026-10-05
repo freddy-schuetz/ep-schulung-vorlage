@@ -17,14 +17,14 @@ Ziel: Aus Rohtext (Notizen, Transkript, PDF) oder einer kurzen Sprachnotiz wird 
 Nicht passend: Terminfindung (eigener Ablauf).
 
 ## Empfohlener Aufbau (Knotenkette)
-1. `n8n-nodes-base.formTrigger` (im Beispiel typeVersion 2.3): Felder `Besprechung` (text), `Notizen` (textarea), `Datei` (file, `multipleFiles: false`). `responseMode: "lastNode"`, Pfad mit Kürzel in `options.path`, etwa `tn3-meetingnotizen`.
+1. `n8n-nodes-base.formTrigger` (im Beispiel typeVersion 2.3): Felder `Besprechung` (text), `Notizen` (textarea), `Datei` (file, `multipleFiles: false`). `responseMode: "lastNode"`, Pfad mit Kürzel in `options.path`, etwa `anna-meetingnotizen`.
 2. `n8n-nodes-base.if` „Text eingefügt?“: `($json.Notizen || '').trim()` ist nicht leer.
 3. Falsch-Zweig: `n8n-nodes-base.extractFromFile`, `operation: "pdf"`, `binaryPropertyName` = Feld-Label (`Datei`). Am Knoten `onError: "continueRegularOutput"` setzen: Bei leerem Formular gibt es kein Binärfeld, und der Knoten bricht sonst ab. Das Formular zeigt dann eine Fehlermeldung statt der Hinweisseite.
    Sollen auch .txt oder .vtt gehen: `acceptFileTypes` auf `.pdf,.txt,.vtt` erweitern, vor dem Auslesen per `n8n-nodes-base.switch` auf `(($binary.Datei || {}).fileExtension || '').toLowerCase()` verzweigen (Fallback-Ausgang für „keine Datei“ zur Hinweisseite) und für Text einen zweiten Knoten mit `operation: "text"` und `destinationKey: "text"` nehmen. Ohne `destinationKey` landet der Text in `data`, nicht in `text`.
 4. `n8n-nodes-base.set` je Zweig: einheitliche Felder `text`, `besprechung`, `quelle`. Im Datei-Zweig `text` als `{{ $json.text || '' }}`, damit ein Fehler-Item leeren Text liefert.
 5. `n8n-nodes-base.if` „Genug Text?“ (Länge ab etwa 50 Zeichen). Sonst `n8n-nodes-base.form` mit `operation: "completion"` und klarer Fehlermeldung. Nie ein leeres Protokoll zeigen.
 6. `@n8n/n8n-nodes-langchain.informationExtractor` mit `schemaType: "manual"` (JSON-Schema: `titel`, `datum`, `zusammenfassung`, `entscheidungen[]`, `aufgaben[{aufgabe, verantwortlich, faellig_bis, beleg}]`, `offene_fragen[]`) und dem Modell-Node zum KI-Credential aus `CLAUDE.md` an `ai_languageModel`. Ergebnis liegt unter `$json.output`. Alternative: `@n8n/n8n-nodes-langchain.chainLlm` mit `hasOutputParser: true` plus `@n8n/n8n-nodes-langchain.outputParserStructured`.
-7. `n8n-nodes-base.splitOut` auf `output.aufgaben`, dann `n8n-nodes-base.dataTable` (`operation: "insert"`, eigene Tabelle per `mode: "name"`, etwa `tn3_meeting_aufgaben`), Spalten zum Beispiel besprechung, aufgabe, verantwortlich, faellig_bis, status.
+7. `n8n-nodes-base.splitOut` auf `output.aufgaben`, dann `n8n-nodes-base.dataTable` (`operation: "insert"`, eigene Tabelle per `mode: "name"`, etwa `anna_meeting_aufgaben`), Spalten zum Beispiel besprechung, aufgabe, verantwortlich, faellig_bis, status.
 8. `n8n-nodes-base.set` baut Markdown aus dem Schema (Listen per Ausdruck, nicht per KI), `n8n-nodes-base.markdown` (`markdownToHtml`), `n8n-nodes-base.form` (`operation: "completion"`, `respondWith: "showText"`).
 
 ## Variante: Sprachnotiz wird Bericht

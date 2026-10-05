@@ -34,7 +34,7 @@ Nach dem Bauen oder einer größeren Änderung testest du **einmal sauber** mit 
 
 3. **Zeitplan und manueller Auslöser** lassen sich über diese Verbindung nicht starten. `n8n_test_workflow` meldet dann `Workflow cannot be triggered externally`. Auch `method: "prepare"`, `"pinned"` und `"direct"` gehen über den Hub nicht. Zwei Wege:
    - Bitte die Person, den Workflow in n8n zu öffnen und auf **Execute workflow** zu klicken. Danach liest du die Ausführung.
-   - Häng zum Testen einen Webhook mit Kürzel-Pfad (zum Beispiel `tn3-test`) an den ersten Verarbeitungsschritt, teste darüber und entferne ihn danach wieder.
+   - Häng zum Testen einen Webhook mit Kürzel-Pfad (zum Beispiel `anna-test`) an den ersten Verarbeitungsschritt, teste darüber und entferne ihn danach wieder.
 
 4. **Ergebnis prüfen.** Ausführung holen, immer zum eigenen Workflow:
    ```

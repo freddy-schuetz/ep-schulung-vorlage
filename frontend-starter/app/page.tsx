@@ -5,7 +5,7 @@ import { postWebhook } from "@/lib/n8n";
 
 type HelloResponse = { message?: string };
 
-// Pfad des eigenen Webhooks mit Kürzel, zum Beispiel "tn3-hello" (ohne /webhook/).
+// Pfad des eigenen Webhooks mit Kürzel, zum Beispiel "anna-hello" (ohne /webhook/).
 // In der E&P-n8n gehört jeder Pfad genau einem Workflow. Ohne Angabe ruft die Seite nichts auf.
 const HELLO_PATH = (process.env.NEXT_PUBLIC_HELLO_PATH || "").trim();
 
@@ -21,7 +21,7 @@ export default function Home() {
     setAnswer(null);
     if (!HELLO_PATH) {
       setError(
-        "NEXT_PUBLIC_HELLO_PATH fehlt. Beim ersten Veröffentlichen den eigenen Pfad mitgeben, zum Beispiel tn3-hello.",
+        "NEXT_PUBLIC_HELLO_PATH fehlt. Beim ersten Veröffentlichen den eigenen Pfad mitgeben, zum Beispiel anna-hello.",
       );
       return;
     }
@@ -45,7 +45,7 @@ export default function Home() {
           (Vorlage{" "}
           <code className="rounded bg-gray-200 px-1">hello-webhook.json</code>, Pfad{" "}
           <code className="rounded bg-gray-200 px-1">
-            /webhook/{HELLO_PATH || "tn3-hello"}
+            /webhook/{HELLO_PATH || "anna-hello"}
           </code>
           ).
         </p>

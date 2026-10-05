@@ -13,7 +13,7 @@ In der Schulung reicht ein **kurzer Blick** über diese Punkte. Es geht nur um d
 - [ ] Keine Secrets in Code-Nodes
 
 ## Webhooks und Formulare
-- [ ] Pfad mit eigenem Kürzel, zum Beispiel `tn3-anfragen`, nicht erratbar (kein `/test`, kein `/webhook`)
+- [ ] Pfad mit eigenem Kürzel, zum Beispiel `anna-anfragen`, nicht erratbar (kein `/test`, kein `/webhook`)
 - [ ] Authentifizierung, wenn der Webhook Daten ändert (Header Auth oder Basic Auth). „None“ nur bei harmlosen, öffentlichen Endpunkten
 - [ ] Respond to Webhook vorhanden, wenn eine Antwort erwartet wird (kein hängender Aufruf)
 - [ ] Test-Webhooks nach dem Test wieder entfernt

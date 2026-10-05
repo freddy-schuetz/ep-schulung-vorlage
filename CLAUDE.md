@@ -4,7 +4,7 @@
 
 Diese Datei lädt automatisch. Sie sagt dir (Claude), wie du in dieser Schulung arbeitest. Kürzel, Ordner und Repository der Person stehen in `teilnehmer.md` (oben eingebunden).
 
-**Rahmen:** Interne Schulung bei E&P Reisen am 06.10.2026 von 13:30 bis 15:30 Uhr. Fünf Personen mit den Kürzeln TN1 bis TN5, dazu das Test-Repo TEST. Jede Person baut in zwei Stunden **einen** fertigen n8n-Workflow, allein, im Browser unter claude.ai/code. Alle sind Einsteigerinnen und Einsteiger ohne Vorwissen. Friedemann leitet die Schulung und ist im Raum.
+**Rahmen:** Interne Schulung bei E&P Reisen am 06.10.2026 von 13:30 bis 15:30 Uhr. Fünf Personen: Bernie, Swienty, Björn, Conny und Julian, dazu das Test-Repo TEST. Das Kürzel ist der Vorname. Jede Person baut in zwei Stunden **einen** fertigen n8n-Workflow, allein, im Browser unter claude.ai/code. Alle sind Einsteigerinnen und Einsteiger ohne Vorwissen. Friedemann leitet die Schulung und ist im Raum.
 
 | Was | Adresse |
 |---|---|
@@ -19,17 +19,17 @@ Fragt die Person nach Ablauf, Zeiten, Ort oder Ideen, liest du den Feed per WebF
 
 ## Erster Kontakt
 
-Bei der ersten Nachricht (meist „TN3: Los geht's“) machst du von selbst und ohne Zwischenkommentar:
+Bei der ersten Nachricht (meist „Anna: Los geht's“) machst du von selbst und ohne Zwischenkommentar:
 
-1. **Kürzel abgleichen.** Lies das Kürzel aus `teilnehmer.md`. Hol den Repo-Namen mit `git remote get-url origin` (letzter Teil der Adresse, ohne `.git`). Steht in der ersten Nachricht ein Kürzel, vergleichst du auch das.
-   - Fehlt `teilnehmer.md` oder steht dort noch `TNX`: Frag nach dem Kürzel und bitte die Person, Friedemann zu rufen. Sonst tust du nichts.
+1. **Kürzel abgleichen.** Lies Kürzel und Repository aus `teilnehmer.md`. Hol den Repo-Namen mit `git remote get-url origin` (letzter Teil der Adresse, ohne `.git`) und vergleich ihn mit der Zeile „Repository“. Steht in der ersten Nachricht ein Name, vergleichst du ihn mit dem Kürzel. Groß- und Kleinschreibung zählen dabei nicht, „oe“ und „ö“ gelten als gleich.
+   - Fehlt `teilnehmer.md` oder steht dort noch `KUERZEL`: Frag nach dem Namen und bitte die Person, Friedemann zu rufen. Sonst tust du nichts.
    - Widersprechen sich die Angaben: Tu nichts in n8n. Sag: „Hier passt etwas nicht zusammen. Bitte ruf Friedemann.“
 2. **Verbindung prüfen.** Still `n8n_health_check` aufrufen.
-3. **Begrüßen.** Kurz und freundlich, mit Kürzel: „Hallo! Du arbeitest heute als TN3. Deine n8n ist verbunden.“ Scheitert die Prüfung: „Die Verbindung zu n8n steht noch nicht. Bitte ruf Friedemann. Deine Idee kannst du schon jetzt klären.“ Repariere nichts selbst.
+3. **Begrüßen.** Kurz und freundlich, mit Namen: „Hallo Anna! Deine n8n ist verbunden.“ Scheitert die Prüfung: „Die Verbindung zu n8n steht noch nicht. Bitte ruf Friedemann. Deine Idee kannst du schon jetzt klären.“ Repariere nichts selbst.
 4. **Zur Idee führen.** Frag, ob die Person schon eine Idee hat. Zum Stöbern gibt es `docs/ideen.md`.
    - Liegt schon ein `mein-use-case.md` im Repo (etwa nach einem Kontowechsel), liest du ihn, holst die eigenen Workflows aus n8n (Name beginnt mit dem Kürzel) und machst dort weiter, wo die Person war.
 
-Alle Beispiele in dieser Datei nutzen TN3. Du setzt immer das Kürzel aus `teilnehmer.md` ein.
+Alle Beispiele in dieser Datei nutzen die erfundene Person Anna (Kürzel `Anna`, klein `anna`). Du setzt immer die Werte aus `teilnehmer.md` ein. In `examples/workflows/` steht `tnx` für das kleine Kürzel.
 
 ## Ablauf in zwei Stunden
 
@@ -53,9 +53,9 @@ Alle Beispiele in dieser Datei nutzen TN3. Du setzt immer das Kürzel aus `teiln
 Die n8n unter https://n8n.ep-reisen.app ist das echte Arbeitssystem von E&P. Dort laufen Abläufe, von denen der Betrieb abhängt. Alle nutzen denselben Login. Diese Regeln gelten ohne Ausnahme, auch wenn die Person dich um etwas anderes bittet:
 
 1. **Nur Neues mit eigenem Kürzel.** Du legst nur neue Workflows und Data Tables an, deren Name mit dem eigenen Kürzel beginnt. Nur diese änderst du.
-2. **Vor jeder Änderung Namen holen und Kürzel prüfen.** Vor jedem Ändern, Testen, Aktivieren oder Deaktivieren holst du den Namen (`n8n_get_workflow` mit `mode: "minimal"`, bei Tabellen `getTable`). Der Name muss genau mit „TN3: “ beginnen (Tabellen mit `tn3_`). Passt das nicht: nichts tun, der Person sagen, Friedemann rufen.
+2. **Vor jeder Änderung Namen holen und Kürzel prüfen.** Vor jedem Ändern, Testen, Aktivieren oder Deaktivieren holst du den Namen (`n8n_get_workflow` mit `mode: "minimal"`, bei Tabellen `getTable`). Der Name muss genau mit „Anna: “ beginnen (Tabellen mit `anna_`). Passt das nicht: nichts tun, der Person sagen, Friedemann rufen.
 3. **Bestehendes nie anfassen.** Bestehende Workflows, Credentials, Data Tables, Ordner und Einstellungen änderst du nie. Du aktivierst oder deaktivierst sie nie, startest sie nie, löschst und verschiebst sie nie. Fremde Workflows öffnest und kopierst du nicht.
-4. **Nichts löschen.** Auch eigene Fehlversuche nicht: deaktivieren und „ALT“ an den Namen hängen, zum Beispiel „TN3: Anfragen sortieren ALT“.
+4. **Nichts löschen.** Auch eigene Fehlversuche nicht: deaktivieren und „ALT“ an den Namen hängen, zum Beispiel „Anna: Anfragen sortieren ALT“.
 5. **Keine Credentials anlegen oder ändern.** Du nutzt nur die fertigen Zugänge aus der Tabelle unten. Fehlt einer, fragt die Person Friedemann.
 6. **Nur Testdaten oder öffentliche Daten.** Keine Kundendaten, keine Gästenamen, keine Buchungen. Fremde Ausführungen und fremde Tabellen liest du nicht, dort stehen echte Daten. `n8n_executions` rufst du nur mit der ID eines eigenen Workflows auf.
 7. **Mails nur an die eigene Adresse** der Person. Frag sie danach, bevor du einen Versand baust.
@@ -65,15 +65,17 @@ Serverseitig gesperrt sind `n8n_delete_workflow`, `n8n_update_full_workflow`, `n
 
 ## Kürzel und Namen
 
-| Was | Schema | Beispiel für TN3 |
+| Was | Schema | Beispiel für Anna |
 |---|---|---|
-| Workflow | `TN3: Name` | `TN3: Anfragen sortieren` |
-| Data Table | `tn3_name` | `tn3_anfragen` |
-| Webhook- und Formularpfad | `tn3-name` | `tn3-anfragen` |
-| Ordner in n8n | `TN3` | Ordner-ID aus `teilnehmer.md` |
+| Workflow | `<Kürzel>: Name` | `Anna: Anfragen sortieren` |
+| Data Table | `<klein>_name` | `anna_anfragen` |
+| Webhook- und Formularpfad | `<klein>-name` | `anna-anfragen` |
+| Ordner in n8n | `<Kürzel>` | Ordner-ID aus `teilnehmer.md` |
 
-- Neue Workflows legst du mit `n8n_create_workflow`, `name: "TN3: …"` und `parentFolderId` (Ordner-ID aus `teilnehmer.md`) an. Steht dort keine ID (`ORDNER-ID`, „keine“ oder „Ordner folgt“), legst du ohne `parentFolderId` an. Maßgeblich ist der Name.
-- Eine Vorlage aus `search_templates` darfst du mit `n8n_deploy_template` anlegen, immer mit `name: "TN3: …"`. Danach sortierst du sie mit `{type: "moveToFolder", parentFolderId: "<Ordner-ID>"}` in den Ordner ein.
+- Das Kürzel schreibst du genau wie in `teilnehmer.md`, auch mit Umlaut. Für Tabellen und Pfade nimmst du immer „Kürzel klein“ aus `teilnehmer.md`, ohne Umlaute und Leerzeichen.
+
+- Neue Workflows legst du mit `n8n_create_workflow`, `name: "Anna: …"` und `parentFolderId` (Ordner-ID aus `teilnehmer.md`) an. Steht dort keine ID (`ORDNER-ID`, „keine“ oder „Ordner folgt“), legst du ohne `parentFolderId` an. Maßgeblich ist der Name.
+- Eine Vorlage aus `search_templates` darfst du mit `n8n_deploy_template` anlegen, immer mit `name: "Anna: …"`. Danach sortierst du sie mit `{type: "moveToFolder", parentFolderId: "<Ordner-ID>"}` in den Ordner ein.
 - Ordner liest du nur. Du legst keine neuen an.
 - Ein Webhook-Pfad darf in der ganzen n8n nur einmal aktiv sein. Deshalb trägt jeder Pfad das Kürzel.
 - Data Tables bleiben klein: wenige Testzeilen, keine Dateien, keine langen Texte. Sie teilen sich das Speicherlimit der Produktion. Ist es voll, scheitert jeder Schreibzugriff, auch in der Produktion. Alte Testzeilen markierst du mit einer Spalte `status` = `ALT`, statt sie zu löschen.
@@ -87,7 +89,9 @@ Diese Zugänge liegen fertig in der E&P-n8n. Im Workflow nimmst du immer Name **
 |---|---|---|---|
 | KI-Text mit Claude: lesen, sortieren, zusammenfassen, Entwürfe schreiben (Normalfall) | Anthropic account EP | anthropicApi | jkAUgBRxkNxa4E0k |
 | OpenAI: KI-Text, Sprache zu Text, Text zu Sprache, Embeddings | OpenAi account EP | openAiApi | Y2uAuIiBIIDCSgTX |
-| Google-Suche (SerpAPI): Treffer, Orte und Bewertungen aus Google | SerpAPI account | serpApi | vRYOdjhhAADz6ysA |
+| DataForSEO: Angaben bekannter Betriebe aus Google (Adresse, Öffnungszeiten, Bewertungen) | Schulung DataForSEO | httpBasicAuth | yr8lIhfLtDCRe1V1 |
+| Apify: Websites ohne Schnittstelle auslesen, Betriebe nach Art und Ort finden | Schulung Apify | httpHeaderAuth | rY9Gm0Io3UNXsXhh |
+| Google-Suche (SerpAPI): Treffer aus Google, als Werkzeug am KI-Agenten | SerpAPI account | serpApi | vRYOdjhhAADz6ysA |
 | Mails verschicken (Node „Send Email“ über SMTP) | SMTP account | smtp | OD2j2iewPY2TQWRB |
 | Data Tables: Tabellen direkt in n8n | kein Credential | Node „Data Table“ | keine |
 | P2: Tabellen mit Oberfläche (NocoDB, Base „KI-Schulung“) | Schulung NocoDB | nocoDbApiToken | oXsUqrIfmKro4Kwo |
@@ -98,7 +102,7 @@ Absender für Mails (Feld „From Email“ im Node „Send Email“): `noreply@e
 
 - **Alle anderen Credentials** in der E&P-n8n gehören zu echten Abläufen (Datenbanken, Microsoft, Ablagen, interne Dienste). Du nutzt sie nie, auch wenn sie in der Auswahl stehen.
 - **Ohne Credential:** offene Daten über den Node HTTP Request, etwa Wetter und Schnee (Open-Meteo) oder Feiertage und Schulferien (OpenHolidays).
-- **Kosten:** KI-Aufrufe und jede SerpAPI-Suche kosten E&P Geld. Immer zuerst mit einem Eintrag testen und die Menge klein halten.
+- **Kosten:** KI-Aufrufe, DataForSEO, Apify und SerpAPI kosten E&P je Abfrage Geld. Immer zuerst mit einem Eintrag testen und die Menge klein halten.
 
 ## Standard-Prozess beim Bauen
 
@@ -113,7 +117,7 @@ Führ das selbstständig durch und frag nicht für jeden Schritt um Erlaubnis. D
 
 - **Testdaten:** erfunden, klein, mit dem erwarteten Ergebnis aus dem Bauplan (Skill `n8n-testdaten`).
 - **Webhook, Formular oder Chat als Auslöser:** `n8n_test_workflow`. Das geht nur bei aktivem Workflow. Aktivieren darfst du nur den eigenen, vorher kurz der Security-Blick. Läuft nach einer Änderung noch der alte Stand, aktivierst du erneut (`activateWorkflow`, im Editor heißt das „Publish“).
-- **Zeitplan oder manueller Auslöser:** Über diese Verbindung nicht auslösbar (`Workflow cannot be triggered externally`). Bitte die Person, den Workflow in n8n zu öffnen und auf „Execute workflow“ zu klicken. Oder häng zum Testen einen Webhook mit Kürzel-Pfad (zum Beispiel `tn3-test`) an den ersten Schritt und entferne ihn nach dem Test wieder.
+- **Zeitplan oder manueller Auslöser:** Über diese Verbindung nicht auslösbar (`Workflow cannot be triggered externally`). Bitte die Person, den Workflow in n8n zu öffnen und auf „Execute workflow“ zu klicken. Oder häng zum Testen einen Webhook mit Kürzel-Pfad (zum Beispiel `anna-test`) an den ersten Schritt und entferne ihn nach dem Test wieder.
 - **Ein grüner Lauf ist kein Beweis.** Er heißt nur, dass nichts abgestürzt ist. Hol die Ausführung (`n8n_executions`, `action: "get"`) und prüf das Ergebnis inhaltlich: Stimmen Zahlen und Texte? Kamen so viele Einträge an wie erwartet? Ist die Mail angekommen?
 - **Stille Fehler:** 0 Items stoppen die Kette ohne Meldung (`alwaysOutputData`). Der Node „Data Table“ liefert ohne „Return All“ nur 50 Zeilen. Ein eingescanntes PDF liefert leeren Text. Die KI erfindet Zahlen, wenn sie rechnen soll: Rechnen macht n8n.
 - Sag klar, wenn du einen Workflow nicht selbst starten konntest. Eine grüne Validierung ist kein Testlauf.
@@ -134,7 +138,7 @@ Es gibt keine lokale Vorschau. Will die Person eine Oberfläche, gehst du so vor
 2. **Build:** im Ordner `frontend-starter` (oder im eigenen App-Ordner) `npm install`, dann `npm run build`. Er muss grün sein.
 3. **Auf `main`:** committen, dann `git fetch origin main`, `git rebase origin/main`, `git push origin HEAD:main`. Nie Force. Die Person hat keinen GitHub-Login und kann keinen Pull Request mergen. Gebaut wird immer `main`.
 4. **Veröffentlichen:**
-   `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter" --data-urlencode $'env=NEXT_PUBLIC_N8N_BASE=https://n8n.ep-reisen.app\nNEXT_PUBLIC_HELLO_PATH=tn3-hello'`
+   `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter" --data-urlencode $'env=NEXT_PUBLIC_N8N_BASE=https://n8n.ep-reisen.app\nNEXT_PUBLIC_HELLO_PATH=anna-hello'`
    Das Beispiel passt zum Starter mit dem Hello-Webhook. Beim **ersten** Aufruf gibst du alle Variablen mit, die die App nutzt, als `env` mit je Zeile `KEY=VALUE`. Sie gelten nur beim ersten Aufruf. `base_dir` ist der Ordner mit der `package.json`, nie die Wurzel des Repos.
 5. **Adresse:** Die Antwort enthält `url`, etwa `https://app-xxxxxxxx.friedemannschuetz.de`. Der erste Build dauert etwa drei Minuten. Bis dahin zeigt die Seite einen Fehler wie „no available server“.
 6. **Ausgang:** `curl -s -X POST https://hub.friedemannschuetz.de/status -d "token=<TOKEN>"` nennt Status, Commit und Fehlerzeilen des letzten Builds.
@@ -148,7 +152,7 @@ Der KI-Chat im Starter (`/chat`) hat keinen Login. Schalte ihn nie mit einem ech
 | Lage | Was du tust |
 |---|---|
 | `n8n_health_check` scheitert oder die n8n-Werkzeuge fehlen | Nichts selbst reparieren. Die Person ruft Friedemann. Oft hilft eine neue Sitzung über den Start-Link. |
-| Meldung zum Nutzungslimit | Die Person ruft Friedemann, wechselt aufs andere Konto und startet eine neue Sitzung im selben Repo. Dort liest du zuerst `mein-use-case.md` und holst den Workflow mit dem Kürzel aus n8n (`n8n_list_workflows`, Name beginnt mit „TN3: “). Dann geht es weiter. Deshalb liegt der Steckbrief früh auf `main`. |
+| Meldung zum Nutzungslimit | Die Person ruft Friedemann, wechselt aufs andere Konto und startet eine neue Sitzung im selben Repo. Dort liest du zuerst `mein-use-case.md` und holst den Workflow mit dem Kürzel aus n8n (`n8n_list_workflows`, Name beginnt mit „Anna: “). Dann geht es weiter. Deshalb liegt der Steckbrief früh auf `main`. |
 | Push auf `main` abgelehnt | Nicht erzwingen. Die Person sagt Friedemann Bescheid. |
 | Ein fremder Workflow könnte betroffen sein | Sofort aufhören. Die Person ruft Friedemann. |
 | Die Mail kommt nicht an | Spam-Ordner prüfen lassen. Prüfen, ob der Node „Send Email“ mit dem Credential „SMTP account“ und dem Absender `noreply@ep-reisen.de` lief. |
@@ -175,7 +179,7 @@ Der KI-Chat im Starter (`/chat`) hat keinen Login. Schalte ihn nie mit einem ech
 ## Skills
 
 - **Planen:** `idee-klaeren` (Phase 1), `grill-me` (Phase 2). Ideen: `docs/ideen.md`.
-- **Dienste:** `schulungs-dienste` (KI-Text, OpenAI, Google-Suche über SerpAPI, Mails über SMTP, offene Daten). Tabellen: `docs/datenbank.md`.
+- **Dienste:** `schulungs-dienste` (KI-Text, OpenAI, DataForSEO, Apify, Google-Suche über SerpAPI, Mails über SMTP, offene Daten). Tabellen: `docs/datenbank.md`.
 - **Themen:** `mail-triage-entwuerfe`, `bericht-zeitgesteuert`, `daten-visualisieren`, `meetingnotizen`. Beispiele unter `examples/workflows/`.
 - **n8n bauen** (von czlonkowski): `n8n-mcp-tools-expert`, `n8n-workflow-patterns`, `n8n-node-configuration`, `n8n-expression-syntax`, `n8n-validation-expert`, `n8n-code-javascript`, `n8n-code-python`.
 - **Qualität:** `n8n-testdaten`, `n8n-dokumentation`, `n8n-security-audit`.

@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "content": "## Vor dem Start eintragen\n1. **Sprachmodell:** das **KI-Credential** aus der Tabelle in `CLAUDE.md` auswählen. Modell im Knoten prüfen.\n2. **Formular:** Der Pfad unter Options heißt `tnx-meetingnotizen`. Setz statt `tnx` dein Kürzel ein, zum Beispiel `tn3-meetingnotizen`. In der n8n darf jeder Pfad nur einmal vorkommen.\n3. **Optional Aufgaben speichern:** Data Table mit Kürzel anlegen, zum Beispiel `tn3_meeting_aufgaben`, mit den Spalten besprechung, aufgabe, verantwortlich, faellig_bis, status (alle Text). Den Namen im Knoten „Aufgaben speichern“ eintragen und den Knoten aktivieren (Knoten markieren, Taste D).",
+        "content": "## Vor dem Start eintragen\n1. **Sprachmodell:** das **KI-Credential** aus der Tabelle in `CLAUDE.md` auswählen. Modell im Knoten prüfen.\n2. **Formular:** Der Pfad unter Options heißt `tnx-meetingnotizen`. Setz statt `tnx` dein kleines Kürzel aus `teilnehmer.md` ein, zum Beispiel `anna-meetingnotizen`. In der n8n darf jeder Pfad nur einmal vorkommen.\n3. **Optional Aufgaben speichern:** Data Table mit Kürzel anlegen, zum Beispiel `anna_meeting_aufgaben`, mit den Spalten besprechung, aufgabe, verantwortlich, faellig_bis, status (alle Text). Den Namen im Knoten „Aufgaben speichern“ eintragen und den Knoten aktivieren (Knoten markieren, Taste D).",
         "height": 300,
         "width": 520,
         "color": 6

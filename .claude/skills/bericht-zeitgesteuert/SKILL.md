@@ -32,7 +32,7 @@ Nicht passend: einmalige Auswertungen (dafür reicht Claude direkt mit der Datei
 10. Ausgabe: Datei in der Ausführung, Archivzeile in der eigenen Data Table oder per Mail (Node „Send Email“ über SMTP) an die eigene Adresse der Person.
 
 ## Variante: Schnee- und Wetterbericht am Morgen
-1. `scheduleTrigger` täglich um 7 Uhr, dazu zum Testen ein Webhook mit Kürzel-Pfad wie `tn3-schneebericht-test`.
+1. `scheduleTrigger` täglich um 7 Uhr, dazu zum Testen ein Webhook mit Kürzel-Pfad wie `anna-schneebericht-test`.
 2. `set` mit einer kleinen Liste von zwei bis drei Skigebieten (Name, Breite, Länge). Koordinaten findest du über die Geocoding-Adresse von Open-Meteo.
 3. `splitOut`, dann je Ort `httpRequest` auf Open-Meteo mit `daily=snowfall_sum,temperature_2m_max,temperature_2m_min`, `hourly=snow_depth`, `timezone=Europe/Berlin`, `forecast_days=1` (Adressen im Skill `schulungs-dienste`).
 4. `set` je Ort: Neuschnee in cm aus `daily.snowfall_sum[0]`, Schneehöhe aus `hourly.snow_depth` (Meter, für cm mal 100 und runden), Höchst- und Tiefstwert.

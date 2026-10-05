@@ -3,7 +3,7 @@
 ## Auf einen Blick
 
 - Für deinen Workflow reichen fast immer **n8n Data Tables**. Sie sind in n8n eingebaut und brauchen kein Credential.
-- Deine Tabelle beginnt mit deinem Kürzel, zum Beispiel `tn3_anfragen`.
+- Deine Tabelle beginnt mit deinem Kürzel, zum Beispiel `anna_anfragen`.
 - Halte sie klein: wenige Testzeilen, keine Dateien, keine langen Texte.
 - NocoDB und Supabase sind Zusatzbausteine (P2). Es gibt sie nur, wenn Friedemann sie freigeschaltet hat.
 
@@ -11,7 +11,7 @@
 
 - Anlegen, lesen, schreiben und ändern im Workflow mit dem Node „Data Table“ oder von Claude mit `n8n_manage_datatable`.
 - Gut für: Nachschlagelisten, Status merken, kleine Listen, doppelte Einträge erkennen, Protokolle.
-- Sag zum Beispiel: „Leg eine Data Table `tn3_anfragen` mit den Spalten name, anliegen und status an und schreib im Workflow neue Einträge hinein.“
+- Sag zum Beispiel: „Leg eine Data Table `anna_anfragen` mit den Spalten name, anliegen und status an und schreib im Workflow neue Einträge hinein.“
 
 **Wichtig in der E&P-n8n:**
 

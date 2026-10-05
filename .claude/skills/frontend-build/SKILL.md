@@ -30,7 +30,7 @@ Ordnerkonvention: `app/` (Routes) · `components/` (UI) · `lib/` (`n8n.ts`, `ty
 
 ### Muster A: n8n-Webhook (Standard)
 - Env: `NEXT_PUBLIC_N8N_BASE`, im Starter mit dem Standard `https://n8n.ep-reisen.app`.
-- URL-Builder in `lib/n8n.ts`: `${NEXT_PUBLIC_N8N_BASE}/webhook/<pfad>`. Der Pfad trägt das Kürzel, zum Beispiel `tn3-hello`.
+- URL-Builder in `lib/n8n.ts`: `${NEXT_PUBLIC_N8N_BASE}/webhook/<pfad>`. Der Pfad trägt das Kürzel, zum Beispiel `anna-hello`.
 - ⚠️ **Webhook-Daten liegen n8n-seitig unter `.body`** (siehe `CLAUDE.md`). Das berücksichtigt der Workflow, nicht das Frontend.
 - ⚠️ Ein öffentlicher Webhook ist für alle erreichbar. Im Workflow Eingaben prüfen und schreibende Aktionen absichern (Skill `n8n-security-audit`).
 - Die Oberfläche ruft nur Webhooks des **eigenen** Workflows auf, nie fremde Pfade der E&P-n8n.
@@ -72,7 +72,7 @@ n8n sendet bei Webhooks CORS-Header und spiegelt den Origin. Der direkte `fetch`
 
 ## Env-Var-Checkliste
 
-- n8n-Webhook: `NEXT_PUBLIC_N8N_BASE` (Standard `https://n8n.ep-reisen.app`), im Starter dazu `NEXT_PUBLIC_HELLO_PATH` mit Kürzel, zum Beispiel `tn3-hello`.
+- n8n-Webhook: `NEXT_PUBLIC_N8N_BASE` (Standard `https://n8n.ep-reisen.app`), im Starter dazu `NEXT_PUBLIC_HELLO_PATH` mit Kürzel, zum Beispiel `anna-hello`.
 - KI-Chat (Muster C): `ANTHROPIC_API_KEY` und `CHAT_ENABLED`, in der Schulung aus.
 - P2 Supabase: kein direkter Zugriff aus dem Frontend. Die Oberfläche ruft den eigenen n8n-Webhook auf.
 

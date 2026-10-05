@@ -20,7 +20,7 @@ Du prüfst den Steckbrief, bevor gebaut wird. **Freundlich im Ton, klar in der S
 2. **Welche Testdaten?** Zwei oder drei konkrete, ausgedachte Beispiele und das erwartete Ergebnis dazu. Ohne Testdaten kein Bau.
 3. **Wie wird getestet?** Webhook oder Formular lässt sich direkt testen. Ein Zeitplan braucht den Klick auf „Execute workflow“ oder einen Test-Webhook mit Kürzel-Pfad.
 4. **Regeln der echten E&P-n8n:** nur Testdaten, Mails nur an die eigene Adresse, kein Postfach und kein System von E&P. Passt der Plan dazu?
-5. **Kosten und Zugänge:** Gibt es den Zugang in der Tabelle in `CLAUDE.md`? Bei Google-Suche (SerpAPI) und KI: Test mit einem Eintrag.
+5. **Kosten und Zugänge:** Gibt es den Zugang in der Tabelle in `CLAUDE.md`? Bei DataForSEO, Apify, SerpAPI und KI: Test mit einem Eintrag.
 6. **Ergebnis prüfbar?** Woran sieht die Person, dass es stimmt, nicht nur, dass es grün ist?
 
 ## Danach: der Bauplan
@@ -30,7 +30,7 @@ Leg den Bauplan kurz vor und lass ihn freigeben:
 - **Ziel** in einem Satz
 - **Auslöser** und **Schritte** (mit den Nodes, die du nehmen willst)
 - **Zugänge** mit Name aus der Tabelle in `CLAUDE.md`
-- **Namen:** Workflow `TN3: <Name>`, Tabelle `tn3_<name>`, Pfad `tn3-<name>`, Ordner aus `teilnehmer.md`
+- **Namen:** Workflow `Anna: <Name>`, Tabelle `anna_<name>`, Pfad `anna-<name>`, Ordner aus `teilnehmer.md`
 - **Testdaten** und **erwartetes Ergebnis**
 - **Testweg** (Webhook, Formular oder Klick auf „Execute workflow“)
 - **Nicht heute:** was in den nächsten Schritt wandert

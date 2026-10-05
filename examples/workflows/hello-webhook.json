@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## Hallo-Webhook (Demo)\nEmpfängt ein POST mit einem `name`, baut eine Begrüßung und schickt sie als JSON zurück.\n\n**Testen:** POST an die Webhook-URL mit Body `{ \"name\": \"Max\" }`.\n\n⚠️ **E&P-n8n:** Der Pfad im Node „Webhook“ heißt `tnx-hello`. Setz statt `tnx` dein Kürzel ein, zum Beispiel `tn3-hello`, und nenn den Workflow `TN3: Hello Webhook`. Ein Webhook-Pfad darf in der n8n nur einmal aktiv sein.",
+        "content": "## Hallo-Webhook (Demo)\nEmpfängt ein POST mit einem `name`, baut eine Begrüßung und schickt sie als JSON zurück.\n\n**Testen:** POST an die Webhook-URL mit Body `{ \"name\": \"Max\" }`.\n\n⚠️ **E&P-n8n:** Der Pfad im Node „Webhook“ heißt `tnx-hello`. Setz statt `tnx` dein kleines Kürzel aus `teilnehmer.md` ein, zum Beispiel `anna-hello`, und nenn den Workflow `Anna: Hello Webhook`. Ein Webhook-Pfad darf in der n8n nur einmal aktiv sein.",
         "height": 300,
         "width": 380,
         "color": 4

@@ -31,7 +31,7 @@ Frag: „Hast du schon eine Idee, oder soll ich dir ein paar Vorschläge machen?
 
 ### 2. Die fünf Punkte (nur fragen, was fehlt)
 1. **Auslöser:** Wann startet es? (ein Formular wird abgeschickt, jeden Morgen um 7 Uhr, auf Knopfdruck)
-2. **Eingaben:** Welche Daten kommen hinein? Bei Daten von außen schlägst du den passenden fertigen Zugang aus `CLAUDE.md` vor: KI-Text, OpenAI für Sprache, SerpAPI für Google-Suchen, SMTP für Mails, Open-Meteo oder OpenHolidays für offene Daten.
+2. **Eingaben:** Welche Daten kommen hinein? Bei Daten von außen schlägst du den passenden fertigen Zugang aus `CLAUDE.md` vor: KI-Text, OpenAI für Sprache, DataForSEO für Google-Angaben bekannter Betriebe, Apify für Websites und Suchen nach Art und Ort, SerpAPI für Google-Suchen, SMTP für Mails, Open-Meteo oder OpenHolidays für offene Daten.
 3. **Schritte:** Was passiert nacheinander? Du ordnest die Alltagsbeschreibung.
 4. **Ergebnis:** Was kommt heraus und wo landet es? (Mail an die Person selbst, Zeile in einer Data Table, Antwort im Formular)
 5. **Testdaten:** Mit welchen ausgedachten Daten soll der Test laufen? Lass die Person zwei oder drei konkrete Beispiele nennen oder schlag welche vor. Leg das erwartete Ergebnis gleich mit fest.
@@ -40,7 +40,7 @@ Frag: „Hast du schon eine Idee, oder soll ich dir ein paar Vorschläge machen?
 - Passt das in etwa 40 Minuten Bauzeit? Faustregel: ein Auslöser, höchstens fünf bis sechs Schritte, ein Ergebnis.
 - Ist die Idee größer, schneidest du gemeinsam den ersten Schritt heraus. Der Rest kommt als „Nächster Schritt“ in den Steckbrief.
 - Braucht die Idee ein echtes Postfach, einen Kalender oder echte Kundendaten, baust du heute mit Testdaten über ein Formular. Die echte Anbindung wird der nächste Schritt.
-- Bei Google-Suche (SerpAPI) und KI: kostet je Aufruf. Heute mit einem Eintrag testen.
+- Bei DataForSEO, Apify, SerpAPI und KI: kostet je Aufruf. Heute mit einem Eintrag testen.
 
 ### 4. Steckbrief zeigen und bestätigen lassen
 
@@ -58,7 +58,7 @@ Frag: „Hast du schon eine Idee, oder soll ich dir ein paar Vorschläge machen?
 **Ergebnis:** <was kommt heraus, wohin>
 **Testdaten:** <zwei oder drei konkrete Beispiele>
 **Erwartetes Ergebnis:** <woran man sieht, dass es stimmt>
-**Namen:** Workflow `TN3: <Name>`, Tabelle `tn3_<name>`, Pfad `tn3-<name>`
+**Namen:** Workflow `Anna: <Name>`, Tabelle `anna_<name>`, Pfad `anna-<name>`
 **Heute fertig:** <der kleine erste Schritt>
 **Nächster Schritt danach:** <zum Beispiel echtes Postfach anbinden>
 
@@ -66,7 +66,7 @@ Frag: „Hast du schon eine Idee, oder soll ich dir ein paar Vorschläge machen?
 flowchart LR
   A["Auslöser: Formular mit Gruppenanfrage"] --> B["Anliegen erkennen (KI)"]
   B --> C["Antwortentwurf schreiben (KI)"]
-  C --> D["Ergebnis: Entwurf in tn3_anfragen"]
+  C --> D["Ergebnis: Entwurf in anna_anfragen"]
 ```
 ````
 

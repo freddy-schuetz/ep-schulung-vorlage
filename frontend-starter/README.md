@@ -5,14 +5,14 @@ Kleine, lauffähige Oberfläche für die Schulung. Sie ruft einen Webhook deines
 ## Auf einen Blick
 
 - **Was sie tut:** Ein Formular schickt einen Namen an deinen Webhook und zeigt die Antwort.
-- **Wohin:** `https://n8n.ep-reisen.app/webhook/<dein-pfad>`, zum Beispiel `tn3-hello`.
+- **Wohin:** `https://n8n.ep-reisen.app/webhook/<dein-pfad>`, zum Beispiel `anna-hello`.
 - **Veröffentlichen:** Sag Claude „Veröffentliche meine Oberfläche“. Claude baut sie, pusht auf `main` und ruft den Hub auf. Du bekommst eine Adresse wie `https://app-xxxxxxxx.friedemannschuetz.de`.
 - **Erster Aufbau:** etwa drei Minuten. Bis dahin zeigt die Seite einen Fehler wie „no available server“. Das ist normal.
 
 ## So hängt es zusammen
 
-1. In n8n baut Claude den Workflow aus `../examples/workflows/hello-webhook.json`, mit deinem Kürzel im Pfad, zum Beispiel `tn3-hello`.
-2. Beim ersten Veröffentlichen gibt Claude `NEXT_PUBLIC_HELLO_PATH=tn3-hello` als Variable mit. Ohne diesen Pfad ruft die Seite nichts auf.
+1. In n8n baut Claude den Workflow aus `../examples/workflows/hello-webhook.json`, mit deinem Kürzel im Pfad, zum Beispiel `anna-hello`.
+2. Beim ersten Veröffentlichen gibt Claude `NEXT_PUBLIC_HELLO_PATH=anna-hello` als Variable mit. Ohne diesen Pfad ruft die Seite nichts auf.
 3. `NEXT_PUBLIC_N8N_BASE` ist schon auf `https://n8n.ep-reisen.app` eingestellt.
 
 Variablen gelten nur beim **ersten** Veröffentlichen. Später ändert sie nur Friedemann.

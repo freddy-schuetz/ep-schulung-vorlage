@@ -3,7 +3,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## KI-Agent mit echtem Tool (ruft den hello-webhook)\n\nDer Agent kann ein **HTTP-Request-Tool** benutzen, um **live eine API aufzurufen**, hier den **`hello-webhook`** aus diesem Repo (`examples/workflows/hello-webhook.json`).\n\n💬 Sag im Chat z.B. *„Begrüße bitte Max“*. Der Agent ruft das Tool mit `name=Max` auf und gibt die Antwort des Webhooks zurück.\n\n**Voraussetzung:** Der `hello-webhook`-Workflow ist importiert **und aktiv**; trage seine Webhook-URL im Tool-Node ein. In der E&P-n8n hat der hello-webhook deinen eigenen Pfad mit Kürzel, zum Beispiel `tn3-hello`. (Jede andere API funktioniert genauso!)\n\n▶️ **Testen:** oben auf **Chat** klicken und eine Nachricht schicken, **nicht** den Tool-Node einzeln per „Test step“ ausführen (Tools laufen nur über den Agent).",
+        "content": "## KI-Agent mit echtem Tool (ruft den hello-webhook)\n\nDer Agent kann ein **HTTP-Request-Tool** benutzen, um **live eine API aufzurufen**, hier den **`hello-webhook`** aus diesem Repo (`examples/workflows/hello-webhook.json`).\n\n💬 Sag im Chat z.B. *„Begrüße bitte Max“*. Der Agent ruft das Tool mit `name=Max` auf und gibt die Antwort des Webhooks zurück.\n\n**Voraussetzung:** Der `hello-webhook`-Workflow ist importiert **und aktiv**; trage seine Webhook-URL im Tool-Node ein. In der E&P-n8n hat der hello-webhook deinen eigenen Pfad mit Kürzel, zum Beispiel `anna-hello`. (Jede andere API funktioniert genauso!)\n\n▶️ **Testen:** oben auf **Chat** klicken und eine Nachricht schicken, **nicht** den Tool-Node einzeln per „Test step“ ausführen (Tools laufen nur über den Agent).",
         "height": 310,
         "width": 620,
         "color": 4
@@ -83,7 +83,7 @@
     },
     {
       "parameters": {
-        "content": "## HTTP-Request-Tool\nRuft den `hello-webhook` per HTTP auf. Den **Namen** füllt der Agent selbst aus (via `$fromAI`).\n⚠️ Trage hier die **Production-URL** deines hello-webhook ein, z. B. `https://n8n.ep-reisen.app/webhook/tn3-hello` (der Pfad aus deinem hello-webhook).",
+        "content": "## HTTP-Request-Tool\nRuft den `hello-webhook` per HTTP auf. Den **Namen** füllt der Agent selbst aus (via `$fromAI`).\n⚠️ Trage hier die **Production-URL** deines hello-webhook ein, z. B. `https://n8n.ep-reisen.app/webhook/anna-hello` (der Pfad aus deinem hello-webhook).",
         "height": 170,
         "width": 280,
         "color": 2

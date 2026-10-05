@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "content": "## Vorbereitung (einmalig)\nLeg in n8n unter **Data Tables** eine Tabelle mit deinem Kürzel an, z. B. `tn3_chat_log`, mit zwei Text-Spalten:\n- **frage**\n- **antwort**\n\nWähle sie dann im letzten Node („In Tabelle speichern“) aus.",
+        "content": "## Vorbereitung (einmalig)\nLeg in n8n unter **Data Tables** eine Tabelle mit deinem Kürzel an, z. B. `anna_chat_log`, mit zwei Text-Spalten:\n- **frage**\n- **antwort**\n\nWähle sie dann im letzten Node („In Tabelle speichern“) aus.",
         "height": 240,
         "width": 360,
         "color": 6

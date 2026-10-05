@@ -1,12 +1,12 @@
 # Deine Schulungsdaten
 
-- Kürzel: TNX
-- Kürzel klein (für Data Tables und Pfade): tnx
-- Ordner in n8n: TNX, Ordner-ID: ORDNER-ID
-- Repository: ORGNAME/TNX
+- Kürzel (dein Vorname): KUERZEL
+- Kürzel klein (für Data Tables und Pfade): KLEIN
+- Ordner in n8n: KUERZEL, Ordner-ID: ORDNER-ID
+- Repository: ORGNAME/REPONAME
 
 So sehen deine Namen in n8n aus:
 
-- Workflow: `TNX: Name`, zum Beispiel `TNX: Anfragen sortieren`
-- Data Table: `tnx_name`, zum Beispiel `tnx_anfragen`
-- Webhook- und Formularpfad: `tnx-name`, zum Beispiel `tnx-anfragen`
+- Workflow: `KUERZEL: Name`, zum Beispiel `KUERZEL: Anfragen sortieren`
+- Data Table: `KLEIN_name`, zum Beispiel `KLEIN_anfragen`
+- Webhook- und Formularpfad: `KLEIN-name`, zum Beispiel `KLEIN-anfragen`
