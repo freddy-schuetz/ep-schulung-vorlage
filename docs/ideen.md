@@ -56,7 +56,7 @@ Du lädst eine Liste hoch. Der Ablauf findet fehlende Angaben und doppelte Eintr
 
 Du sprichst eine kurze Notiz ein, etwa nach einem Besuch bei einem Partnerbetrieb. Daraus wird ein ordentlicher kurzer Bericht.
 
-- **Worauf du achtest:** Zum Testen sprichst du selbst etwas ein. Andere Menschen nimmst du nur mit ihrer Zustimmung auf. Die Aufnahme wird nicht aufbewahrt.
+- **Worauf du achtest:** Zum Testen sprichst du selbst etwas ein, andere Menschen nimmst du heute nicht auf. Die Aufnahme bleibt in n8n gespeichert und ist für alle mit dem gemeinsamen Login sichtbar.
 - **Passender Skill:** `meetingnotizen`
 - **Einstieg:** „Ich möchte eine Sprachnotiz hochladen und daraus einen kurzen Bericht bekommen. Hilf mir, meine Idee zu klären.“
 

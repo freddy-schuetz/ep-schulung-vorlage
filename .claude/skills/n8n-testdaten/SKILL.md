@@ -21,14 +21,11 @@ Nach dem Bauen oder einer größeren Änderung testest du **einmal sauber** mit 
    - bei Bedarf ein Fehlerfall (Pflichtfeld fehlt)
    Zu jedem Szenario schreibst du das **erwartete Ergebnis** auf.
 
-2. **Webhook-, Formular- und Chat-Workflows** testest du über ihren Auslöser, je Szenario ein Aufruf:
+2. **Webhook- und Formular-Workflows** testest du über ihren Auslöser, je Szenario ein Aufruf:
    ```
    n8n_test_workflow({workflowId: "...", data: {"email": "test@example.com", "name": "Max Mustermann"}})
    ```
-   Chat-Auslöser: statt `data` die Nachricht mitgeben.
-   ```
-   n8n_test_workflow({workflowId: "...", message: "Wann fährt der Bus zur Skireise im Februar ab?"})
-   ```
+   Chat-Auslöser testest du nicht über dieses Werkzeug. Die Person testet im n8n-Editor über den Knopf „Chat“, danach liest du die Ausführung. Den Chat schaltest du nie öffentlich.
    - `data` ist der Body des Aufrufs. Im Workflow liegt er beim Webhook unter `$json.body` (siehe `CLAUDE.md`).
    - Der Aufruf geht nur, wenn der Workflow **aktiv** ist. Vorher kurz der Security-Blick (Pfad mit Kürzel, keine Schlüssel). Nach einer Änderung erneut `activateWorkflow`, sonst läuft der alte Stand.
 

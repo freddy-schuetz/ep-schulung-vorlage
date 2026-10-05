@@ -25,7 +25,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 - **Text zu Sprache:** derselbe Node, Ressource Audio, Operation Generate, Modell `tts-1`.
 - **Embeddings** für die Vektorsuche: `text-embedding-3-small` mit 1536 Zahlen. Nur mit dem P2-Baustein Supabase sinnvoll, siehe `docs/datenbank.md`.
 - Ressourcen und Operationen vorher mit `get_node` prüfen, die Namen ändern sich zwischen Versionen.
-- ⚠️ **Aufnahmen sind personenbezogen.** Zum Testen spricht die Person selbst. Andere Menschen nur mit ihrer Zustimmung. Nach dem Transkribieren bleibt nur der Text.
+- ⚠️ **Aufnahmen sind personenbezogen.** Heute spricht die Person nur selbst, andere Menschen nimmt sie nicht auf. Die Aufnahme bleibt in der Ausführung in n8n gespeichert und ist für alle mit dem gemeinsamen Login sichtbar. Leg sie nicht zusätzlich ab, also keine Tabelle und keine Datei.
 
 ## DataForSEO: Google-Angaben bekannter Betriebe
 
@@ -46,7 +46,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 
 - Apify betreibt fertige Scraper, dort **Actors** genannt: Google-Maps-Suchen, Bewertungsportale, Hotelportale oder beliebige Websites als Text.
 - Node HTTP Request, Methode POST, Adresse:
-  `https://api.apify.com/v2/actors/<ACTOR>/run-sync-get-dataset-items?maxTotalChargeUsd=0.5&timeout=180`
+  `https://api.apify.com/v2/acts/<ACTOR>/run-sync-get-dataset-items?maxTotalChargeUsd=0.5&timeout=180`
   Authentifizierung: Generic Credential Type, dann Header Auth, dann das Credential „Schulung Apify“ aus der Tabelle. Die Eingabe des Actors geht als JSON in den Body (Send Body, Using JSON). Die Ergebnisse kommen direkt als Liste zurück.
 - Die beiden Credentials „Apify account“ in der E&P-n8n sind für den MCP-Baustein gedacht. Für den HTTP Request nimmst du nur „Schulung Apify“.
 

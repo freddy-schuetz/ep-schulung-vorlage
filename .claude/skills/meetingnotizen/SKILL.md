@@ -31,7 +31,7 @@ Nicht passend: Terminfindung (eigener Ablauf).
 1. Formular mit einem Datei-Feld für die Aufnahme (`acceptFileTypes: ".mp3,.m4a,.wav,.webm"`).
 2. Node OpenAI, Ressource Audio, Operation Transcribe (Skill `schulungs-dienste`), Credential OpenAI aus `CLAUDE.md`.
 3. Ab dem Transkript weiter wie oben ab Schritt 5 (Länge prüfen, strukturieren, anzeigen).
-4. Die Aufnahme wird nicht gespeichert, nur der Text.
+4. Die Aufnahme legst du nicht zusätzlich ab, also keine Tabelle und keine Datei. In der Ausführung in n8n bleibt sie trotzdem gespeichert und ist für alle mit dem gemeinsamen Login sichtbar. Heute nimmt die Person nur sich selbst auf.
 
 Zum Testen spricht die Person selbst eine kurze Notiz ein. Andere Menschen nur mit ihrer Zustimmung aufnehmen.
 
