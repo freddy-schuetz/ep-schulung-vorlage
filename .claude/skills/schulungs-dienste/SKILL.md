@@ -1,6 +1,6 @@
 ---
 name: schulungs-dienste
-description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schulung. KI-Text mit Claude (Anthropic) oder OpenAI, OpenAI für Sprache zu Text, Text zu Sprache und Embeddings, DataForSEO (Google-Angaben bekannter Betriebe, Basic Auth, location_name je Land), Apify (Websites ohne Schnittstelle und Betriebe nach Art und Ort, maxTotalChargeUsd, Test mit 1 bis 3 Ergebnissen), Google-Suche über SerpAPI als Werkzeug am KI-Agenten, Mails über SMTP mit dem Node Send Email (Absender noreply@ep-reisen.de, nur an die eigene Adresse) und offene Daten ohne Zugang (Open-Meteo für Wetter und Schnee, OpenHolidays für Feiertage und Schulferien). Verwenden beim Planen und Bauen, sobald ein Workflow einen dieser Dienste braucht.
+description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schulung. KI-Text mit Claude (Anthropic) oder OpenAI, OpenAI für Sprache zu Text, Text zu Sprache und Embeddings, DataForSEO (Google-Angaben bekannter Betriebe, Basic Auth, location_name je Land), Apify (Websites ohne Schnittstelle und Betriebe nach Art und Ort, maxTotalChargeUsd, Test mit 1 bis 3 Ergebnissen), Google-Suche über SerpAPI als Werkzeug am KI-Agenten, Mails über SMTP mit dem Node Send Email (Credential SMTP Freddy Posteo, Absender KI-Schulung <f.schuetz@posteo.de>, nur an die eigene Adresse) und offene Daten ohne Zugang (Open-Meteo für Wetter und Schnee, OpenHolidays für Feiertage und Schulferien). Verwenden beim Planen und Bauen, sobald ein Workflow einen dieser Dienste braucht.
 ---
 
 # Fertige Zugänge in der E&P-n8n
@@ -81,16 +81,17 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 
 ## Mails über SMTP
 
-- Node „Send Email“ (`n8n-nodes-base.emailSend`), Credential „SMTP account“:
+- Node „Send Email“ (`n8n-nodes-base.emailSend`), Credential „SMTP Freddy Posteo“:
 
   ```
-  fromEmail    noreply@ep-reisen.de
+  fromEmail    KI-Schulung <f.schuetz@posteo.de>
   toEmail      <eigene Adresse der Person>
   subject      {{ $json.betreff }}
   emailFormat  text   (oder html)
   text         {{ $json.text }}
   ```
 
+- Den Absender übernimmst du genau so. Einen anderen lehnt der Mailserver ab. Das ältere Credential „SMTP account“ nutzt du nie.
 - Empfänger ist nur die eigene Adresse der Person. Frag sie danach. Nie an Kundinnen, Kunden oder Verteiler.
 - Feldnamen vorher mit `get_node` prüfen, sie hängen von der Node-Version ab.
 - Kommt die Mail nicht an: Spam-Ordner prüfen lassen, Absender prüfen, Ausführung ansehen.

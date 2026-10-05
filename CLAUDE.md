@@ -92,12 +92,12 @@ Diese Zugänge liegen fertig in der E&P-n8n. Im Workflow nimmst du immer Name **
 | DataForSEO: Angaben bekannter Betriebe aus Google (Adresse, Öffnungszeiten, Bewertungen) | Schulung DataForSEO | httpBasicAuth | yr8lIhfLtDCRe1V1 |
 | Apify: Websites ohne Schnittstelle auslesen, Betriebe nach Art und Ort finden | Schulung Apify | httpHeaderAuth | rY9Gm0Io3UNXsXhh |
 | Google-Suche (SerpAPI): Treffer aus Google, als Werkzeug am KI-Agenten | SerpAPI account | serpApi | vRYOdjhhAADz6ysA |
-| Mails verschicken (Node „Send Email“ über SMTP) | SMTP account | smtp | OD2j2iewPY2TQWRB |
+| Mails verschicken (Node „Send Email“ über SMTP) | SMTP Freddy Posteo | smtp | CfZgZ54GfBvMkZTk |
 | Data Tables: Tabellen direkt in n8n | kein Credential | Node „Data Table“ | keine |
 | P2: Tabellen mit Oberfläche (NocoDB, Base „KI-Schulung“) | Schulung NocoDB | nocoDbApiToken | oXsUqrIfmKro4Kwo |
 | P2: Datenbank mit Vektorsuche (Supabase, Tabelle `documents`) | Schulung Supabase | supabaseApi | kmOK3pV2ZTcnpnmN |
 
-Absender für Mails (Feld „From Email“ im Node „Send Email“): `noreply@ep-reisen.de`
+Absender für Mails (Feld „From Email“ im Node „Send Email“): `KI-Schulung <f.schuetz@posteo.de>`. Einen anderen Absender lehnt der Mailserver ab. Das ältere Credential „SMTP account“ nutzt du nie.
 <!-- CREDENTIALS:END -->
 
 - **Alle anderen Credentials** in der E&P-n8n gehören zu echten Abläufen (Datenbanken, Microsoft, Ablagen, interne Dienste). Du nutzt sie nie, auch wenn sie in der Auswahl stehen.
@@ -159,7 +159,7 @@ Der KI-Chat im Starter (`/chat`) hat keinen Login. Schalte ihn nie mit einem ech
 | Meldung zum Nutzungslimit | Die Person ruft Friedemann, wechselt aufs andere Konto und startet eine neue Sitzung im selben Repo. Dort liest du zuerst `mein-use-case.md` und holst den Workflow mit dem Kürzel aus n8n (`n8n_list_workflows`, Name beginnt mit „Anna: “). Dann geht es weiter. Deshalb liegt der Steckbrief früh auf `main`. |
 | Push auf `main` abgelehnt | Nicht erzwingen. Die Person sagt Friedemann Bescheid. |
 | Ein fremder Workflow könnte betroffen sein | Sofort aufhören. Die Person ruft Friedemann. |
-| Die Mail kommt nicht an | Spam-Ordner prüfen lassen. Prüfen, ob der Node „Send Email“ mit dem Credential „SMTP account“ und dem Absender `noreply@ep-reisen.de` lief. |
+| Die Mail kommt nicht an | Spam-Ordner prüfen lassen. Prüfen, ob der Node „Send Email“ mit dem Credential „SMTP Freddy Posteo“ und dem Absender `KI-Schulung <f.schuetz@posteo.de>` lief. |
 
 ## So sprichst du mit der Person
 

@@ -67,7 +67,7 @@
     },
     {
       "parameters": {
-        "content": "## Ergebnis und nächster Schritt\n- **Jetzt:** HTML-Datei im Knoten „Als HTML-Datei“ herunterladen.\n- **Per Mail an dich:** den Node „Send Email“ anhängen (Credential „SMTP account“, Absender noreply@ep-reisen.de), Empfänger nur deine eigene Adresse.\n- **Leere Woche:** Liefert die Tabelle keine Zeilen, sorgt „Always Output Data“ am Tabellen-Knoten für ein leeres Item. „Zeilen vorhanden?“ schickt es zu „Hinweis: keine Daten“ statt in einen leeren Bericht, die KI wird nicht aufgerufen.\n- In der E&P-n8n verbindest du kein Postfach und kein Konto. Das ist die echte n8n von E&P.",
+        "content": "## Ergebnis und nächster Schritt\n- **Jetzt:** HTML-Datei im Knoten „Als HTML-Datei“ herunterladen.\n- **Per Mail an dich:** den Node „Send Email“ anhängen (Credential „SMTP Freddy Posteo“, Absender KI-Schulung <f.schuetz@posteo.de>), Empfänger nur deine eigene Adresse.\n- **Leere Woche:** Liefert die Tabelle keine Zeilen, sorgt „Always Output Data“ am Tabellen-Knoten für ein leeres Item. „Zeilen vorhanden?“ schickt es zu „Hinweis: keine Daten“ statt in einen leeren Bericht, die KI wird nicht aufgerufen.\n- In der E&P-n8n verbindest du kein Postfach und kein Konto. Das ist die echte n8n von E&P.",
         "height": 380,
         "width": 640,
         "color": 7

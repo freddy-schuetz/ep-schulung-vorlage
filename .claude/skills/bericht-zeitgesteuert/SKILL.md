@@ -75,7 +75,7 @@ In der Schulung verbindest du kein Postfach, keine Ablage und kein Konto. Das is
 ## Typische Fallen
 - **0 Items stoppen alles:** Liefert der Datenknoten nichts, laufen die folgenden Knoten nicht, und niemand merkt es. Siehe Schritt 3.
 - **Data Table Get liefert ohne `returnAll` nur 50 Zeilen**, auch wenn `limit` höher steht, und meldet keinen Fehler. Zeilenzahl im Ergebnis gegen die Tabelle prüfen.
-- **Versand über „Send Email“ (SMTP):** Node `n8n-nodes-base.emailSend`, Credential „SMTP account“, Absender `noreply@ep-reisen.de`, Empfänger nur die eigene Adresse der Person. Details im Skill `schulungs-dienste`.
+- **Versand über „Send Email“ (SMTP):** Node `n8n-nodes-base.emailSend`, Credential „SMTP Freddy Posteo“, Absender `KI-Schulung <f.schuetz@posteo.de>`, Empfänger nur die eigene Adresse der Person. Details im Skill `schulungs-dienste`.
 - **Zeitzone:** Zeitplan und `$now` richten sich nach der Workflow-Zeitzone. Ohne Einstellung gilt die Zeitzone der Instanz, der Bericht kommt dann zur falschen Stunde oder mit verschobenem Zeitraum.
 - **Zeitplan läuft automatisch nur bei aktivem Workflow.** Im Editor lässt er sich per Klick testen, das beweist aber nicht, dass der Zeitplan aktiv ist.
 - **Zeitplan über diese Verbindung nicht startbar:** `n8n_test_workflow` meldet `Workflow cannot be triggered externally`. Dann klickt die Person „Execute workflow“, oder du testest über einen Test-Webhook mit Kürzel-Pfad.
