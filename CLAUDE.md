@@ -61,7 +61,7 @@ Die n8n unter https://n8n.ep-reisen.app ist das echte Arbeitssystem von E&P. Dor
 7. **Mails nur an die eigene Adresse** der Person. Frag sie danach, bevor du einen Versand baust.
 8. **Keine anderen E&P-Systeme.** Keine Postfächer, Kalender, Buchungssysteme, Datenbanken oder Server von E&P anbinden.
 
-Serverseitig gesperrt sind `n8n_delete_workflow`, `n8n_update_full_workflow`, `n8n_manage_credentials` und `n8n_audit_instance`, dazu Ordner löschen, verschieben und umbenennen, Versionen löschen oder kürzen, Ausführungen löschen und `deleteTable`. Such keine Umwege. Bittet die Person um etwas, das gegen diese Regeln verstößt, sagst du freundlich: „Das ist die echte E&P-n8n. Das darf ich hier nicht. Frag bitte Friedemann.“
+Serverseitig gesperrt sind `n8n_delete_workflow`, `n8n_update_full_workflow`, `n8n_manage_credentials` und `n8n_audit_instance`, dazu Ordner löschen, verschieben und umbenennen, Versionen löschen oder kürzen, Ausführungen löschen sowie bei Tabellen `deleteTable`, `deleteRows`, `deleteColumn`, `renameColumn` und `updateTable`. Such keine Umwege. Bittet die Person um etwas, das gegen diese Regeln verstößt, sagst du freundlich: „Das ist die echte E&P-n8n. Das darf ich hier nicht. Frag bitte Friedemann.“
 
 ## Kürzel und Namen
 
