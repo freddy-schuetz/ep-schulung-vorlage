@@ -136,6 +136,8 @@ Führ das selbstständig durch und frag nicht für jeden Schritt um Erlaubnis. D
 
 Es gibt keine lokale Vorschau. Will die Person eine Oberfläche, gehst du so vor. Sie tippt keine Befehle.
 
+**E&P-Layout, immer:** Jede Oberfläche sieht aus wie ep-reisen.de. Kopf mit E&P-Logo und Fuß setzt `frontend-starter/app/layout.tsx` von selbst. Schrift (Lato), Farben und Bausteine stehen in `app/globals.css`: `ep-ueberschrift`, `ep-karte`, `ep-label`, `ep-feld`, `ep-knopf`, `ep-cta` (nur für die eine Hauptaktion), `ep-hinweis`, `ep-fehler`, `ep-tabelle`. Den Namen der Oberfläche trägst du in `lib/app.ts` ein. Keine anderen Farben, Schriften oder runden Ecken, kein anderes Logo, und Kopf und Fuß baust du nicht um. Eine neue Oberfläche entsteht als Kopie von `frontend-starter`. Details im Skill `frontend-build`.
+
 1. **Token:** aus der `url` in `.mcp.json`, der Teil `/g/<token>/mcp`. Steht dort `TOKEN-FEHLT`, sagt die Person Friedemann Bescheid. Den Token setzt du direkt in die curl-Befehle aus Schritt 4 und 6 ein, genau in der Form unten. Nur diese Form ist freigegeben. Bau dafür kein eigenes Skript und keinen Umweg, sonst muss die Person jeden Schritt einzeln bestätigen.
 2. **Build:** im Ordner `frontend-starter` (oder im eigenen App-Ordner) `npm install`, dann `npm run build`. Er muss grün sein.
 3. **Auf `main`:** committen, dann `git fetch origin main`, `git rebase origin/main`, `git push origin HEAD:main`. Nie Force. Die Person hat keinen GitHub-Login und kann keinen Pull Request mergen. Gebaut wird immer `main`.

@@ -6,6 +6,7 @@ Kleine, lauffähige Oberfläche für die Schulung. Sie ruft einen Webhook deines
 
 - **Was sie tut:** Ein Formular schickt einen Namen an deinen Webhook und zeigt die Antwort.
 - **Wohin:** `https://n8n.ep-reisen.app/webhook/<dein-pfad>`, zum Beispiel `anna-hello`.
+- **Aussehen:** E&P-Layout wie auf ep-reisen.de. Kopf mit Logo und Fuß kommen aus `app/layout.tsx`, Schrift, Farben und Bausteine (`ep-karte`, `ep-feld`, `ep-knopf` …) aus `app/globals.css`. Den Namen der Oberfläche setzt `lib/app.ts`.
 - **Veröffentlichen:** Sag Claude „Veröffentliche meine Oberfläche“. Claude baut sie, pusht auf `main` und ruft den Hub auf. Du bekommst eine Adresse wie `https://app-xxxxxxxx.friedemannschuetz.de`.
 - **Erster Aufbau:** etwa drei Minuten. Bis dahin zeigt die Seite einen Fehler wie „no available server“. Das ist normal.
 

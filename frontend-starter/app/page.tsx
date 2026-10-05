@@ -9,6 +9,8 @@ type HelloResponse = { message?: string };
 // In der E&P-n8n gehört jeder Pfad genau einem Workflow. Ohne Angabe ruft die Seite nichts auf.
 const HELLO_PATH = (process.env.NEXT_PUBLIC_HELLO_PATH || "").trim();
 
+// Beispielseite im E&P-Layout. Kopf und Fuß kommen aus app/layout.tsx,
+// Farben und Bausteine (ep-karte, ep-feld, ep-knopf, ep-cta, ep-hinweis, ep-fehler) aus app/globals.css.
 export default function Home() {
   const [name, setName] = useState("");
   const [answer, setAnswer] = useState<string | null>(null);
@@ -37,22 +39,17 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 p-8">
-      <header>
-        <h1 className="text-2xl font-bold">Frontend-Starter der Schulung</h1>
-        <p className="mt-1 text-gray-600">
-          Das Formular ruft einen <strong>n8n-Webhook</strong> deines eigenen Workflows auf
-          (Vorlage{" "}
-          <code className="rounded bg-gray-200 px-1">hello-webhook.json</code>, Pfad{" "}
-          <code className="rounded bg-gray-200 px-1">
-            /webhook/{HELLO_PATH || "anna-hello"}
-          </code>
-          ).
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="ep-ueberschrift text-3xl">Hallo aus n8n</h1>
+        <p className="mt-4 text-ink-muted">
+          Das Formular ruft einen n8n-Webhook deines eigenen Workflows auf (Vorlage <code>hello-webhook.json</code>,
+          Pfad <code>/webhook/{HELLO_PATH || "anna-hello"}</code>).
         </p>
-      </header>
+      </div>
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-3">
-        <label htmlFor="name" className="text-sm font-medium">
+      <form onSubmit={onSubmit} className="ep-karte flex flex-col gap-3">
+        <label htmlFor="name" className="ep-label">
           Dein Name
         </label>
         <input
@@ -60,39 +57,20 @@ export default function Home() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Max"
-          className="rounded-lg border border-gray-300 px-3 py-2 focus:border-brand focus:outline-none"
+          className="ep-feld"
           required
         />
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-lg bg-brand px-4 py-2 font-medium text-white disabled:opacity-50"
-        >
+        <button type="submit" disabled={loading} className="ep-knopf ep-cta self-start">
           {loading ? "Sende …" : "An n8n senden"}
         </button>
       </form>
 
-      {answer && (
-        <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-green-900">
-          {answer}
-        </div>
-      )}
+      {answer && <div className="ep-hinweis">{answer}</div>}
       {error && (
-        <div
-          role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900"
-        >
+        <div role="alert" className="ep-fehler">
           {error}
         </div>
       )}
-
-      <p className="text-sm text-gray-500">
-        Optionaler KI-Chat (Muster C):{" "}
-        <a href="/chat" className="text-brand underline">
-          /chat
-        </a>{" "}
-        (in der Schulung ausgeschaltet).
-      </p>
-    </main>
+    </div>
   );
 }

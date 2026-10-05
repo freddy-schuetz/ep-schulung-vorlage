@@ -9,9 +9,9 @@ Damit neue Frontends nicht vom etablierten Stack abweichen. Laufende Konventione
 
 ## Zuerst: vom Beispiel ausgehen statt from-scratch
 
-Schnellster Weg: das lauffähige **`frontend-starter/`** in diesem Repo als Startpunkt kopieren (bringt Muster A und optional Muster C bereits mit) oder mit **`npx create-next-app@latest`** frisch beginnen und die Konventionen unten anwenden.
+In der Schulung entsteht jede neue Oberfläche als Kopie von **`frontend-starter/`**. Nur so hat sie das E&P-Layout (Logo, Lato, Farben, Bausteine `ep-…`, siehe Skill `frontend-build`). `npx create-next-app` nimmst du nicht.
 
-Nach dem Kopieren: `node_modules/` und `.next/` entfernen, `name` in der `package.json` anpassen. Die neue App bleibt als eigener Ordner **im selben Repository**; beim Veröffentlichen ist dieser Ordner das `base_dir`.
+Nach dem Kopieren: `node_modules/` und `.next/` entfernen, `name` in der `package.json` anpassen und den Namen der Oberfläche in `lib/app.ts` setzen. Kopf, Fuß, `app/globals.css`, `app/fonts/` und `public/ep-logo.svg` bleiben unverändert. Die neue App bleibt als eigener Ordner **im selben Repository**; beim Veröffentlichen ist dieser Ordner das `base_dir`.
 
 ## Entscheidungsbaum
 
@@ -70,22 +70,16 @@ Nach dem Kopieren: `node_modules/` und `.next/` entfernen, `name` in der `packag
 export default { plugins: { "@tailwindcss/postcss": {} } };
 ```
 
-`app/globals.css` (Kopf): Content wird automatisch erkannt, Theme und Markenfarben über `@theme`:
-```css
-@import "tailwindcss";
-
-@theme {
-  --color-brand: #0ea5e9;   /* eigene Brand-Farben als CSS-Variablen */
-}
-```
+`app/globals.css` übernimmst du unverändert aus `frontend-starter`. Sie beginnt mit `@import "tailwindcss";` und legt E&P-Farben, eckige Formen und die Bausteine `ep-…` fest. Eigene Farben kommen nicht dazu.
 - Liegen Quellen außerhalb der Standardpfade: `@source "../pfad";` in der CSS ergänzen.
 - `@import "tailwindcss";` ersetzt die alten `@tailwind base/components/utilities;`-Direktiven (TW3).
 
 ## Ordnergerüst
 ```
-app/            # page.tsx, layout.tsx, globals.css (@import "tailwindcss") (+ ggf. /api Routes)
-components/      # wiederverwendbare UI
-lib/            # n8n.ts | api.ts, types.ts (+ ai/model.ts bei Muster C)
+app/            # page.tsx, layout.tsx (E&P-Kopf und -Fuß), globals.css (E&P-Layout), fonts/ (Lato) (+ ggf. /api Routes)
+components/      # EpKopf.tsx, EpFuss.tsx und eigene UI
+lib/            # app.ts (Name der Oberfläche), n8n.ts | api.ts, types.ts (+ ai/model.ts bei Muster C)
+public/         # ep-logo.svg, favicon.svg
 postcss.config.mjs  next.config(.mjs|.ts)  tsconfig.json  .env.local.example
 ```
 

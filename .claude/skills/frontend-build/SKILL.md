@@ -22,6 +22,35 @@ Verbindliche Konventionen für die kleine Oberfläche, die eine Person in der Sc
 
 Ordnerkonvention: `app/` (Routes) · `components/` (UI) · `lib/` (`n8n.ts`, `types.ts`).
 
+## E&P-Layout (Pflicht für jede Oberfläche)
+
+Jede Oberfläche der Schulung sieht aus wie ep-reisen.de und das EP-Budget-Tool. Alles dafür liegt in `frontend-starter/`:
+
+| Datei | Inhalt |
+|---|---|
+| `app/layout.tsx` | legt Kopf (`components/EpKopf.tsx`, E&P-Logo) und Fuß (`components/EpFuss.tsx`) um jede Seite. Seiten liefern nur ihren Inhalt, kein eigenes `<main>`. |
+| `app/globals.css` | Farben, eckige Formen und die Bausteine `ep-…` |
+| `app/fonts/` | Schrift Lato, im Projekt abgelegt, damit der Build ohne Internet klappt |
+| `public/ep-logo.svg` | das E&P-Logo, nur auf hellem Grund |
+| `lib/app.ts` | Name der Oberfläche im Kopf und im Browser-Tab, zum Beispiel `"Hotel-Steckbriefe"` |
+
+**Bausteine:** `ep-ueberschrift` (Seitentitel mit Zierstrich), `ep-karte` (weiße Fläche für Formular oder Ergebnis), `ep-label`, `ep-feld` (Eingabe, Auswahl, Textfeld), `ep-knopf` (Knopf in Tiefblau), `ep-cta` (zusätzlich, nur für die eine Hauptaktion: Magenta-Verlauf), `ep-hinweis` (hellblauer Ergebniskasten), `ep-fehler`, `ep-tabelle`, `arrow-list`.
+**Farben als Tailwind-Klassen:** `bg-ground` (Seitengrund), `bg-surface` (Weiß), `text-ink`, `text-ink-muted`, `text-accent` und `bg-accent` (Tiefblau), `border-hairline`, `text-fehler`.
+
+```tsx
+<h1 className="ep-ueberschrift text-3xl">Hotel-Steckbriefe</h1>
+<form className="ep-karte mt-6 flex flex-col gap-3">
+  <label htmlFor="hotel" className="ep-label">Hotel</label>
+  <input id="hotel" className="ep-feld" />
+  <button type="submit" className="ep-knopf ep-cta self-start">Angaben holen</button>
+</form>
+<div className="ep-hinweis mt-6">Ergebnis …</div>
+```
+
+- Keine anderen Farben, Schriften, Logos oder Verläufe, keine runden Ecken. Kopf, Fuß, `globals.css` und `app/fonts/` bleiben, wie sie sind.
+- Eine neue Oberfläche entsteht als Kopie von `frontend-starter` (Skill `frontend-scaffold`), nie von Grund auf.
+- Will die Person eine andere Optik, sagst du: „In der Schulung haben alle Oberflächen das E&P-Layout.“
+
 ## Anbindung: n8n ist das Backend
 
 1. **Muster A: n8n-Webhook** (immer zuerst): Die Oberfläche ruft einen Webhook des eigenen Workflows auf. Auch KI läuft dort, in den KI-Nodes mit dem Credential aus `CLAUDE.md`.
@@ -87,6 +116,7 @@ n8n sendet bei Webhooks CORS-Header und spiegelt den Origin. Der direkte `fetch`
 ## QA vor dem Veröffentlichen
 
 - `npm run build` grün.
+- E&P-Layout: Logo im Kopf, Name in `lib/app.ts`, nur Bausteine und Farben aus `globals.css`, keine runden Ecken.
 - Nach dem Veröffentlichen: Normalfall und ein Fehlerfall im Browser durchklicken.
 - Netzwerk-Tab: keine 4xx oder 5xx auf den Webhook-Aufrufen.
 - Mobile Ansicht (375 px) prüfen: Das Layout bricht nicht.
