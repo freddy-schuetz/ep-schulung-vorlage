@@ -128,18 +128,22 @@ Führ das selbstständig durch und frag nicht für jeden Schritt um Erlaubnis. D
 - **Export:** den Workflow mit `n8n_get_workflow` holen und als `workflows/<kurzname>.json` speichern. Vorher `pinData` entfernen und bei Credentials nur den Namen lassen (die `id` streichen).
 - **Steckbrief:** `mein-use-case.md` um „Was läuft“ und „Nächster Schritt“ ergänzen.
 - **Sichern:** committen, `git fetch origin main`, `git rebase origin/main`, `git push origin HEAD:main`. Nie Force.
-- Die Adresse in `.mcp.json` wirkt wie ein Passwort. Das Repo bleibt privat, der Token gehört in keine andere Datei und in keine Antwort.
+- Die Adresse in `.mcp.json` wirkt wie ein Passwort. Das Repo bleibt privat, der Token gehört in keine andere Datei und in keine Antwort. Einzige Ausnahme sind die beiden curl-Befehle unter „Veröffentlichen“.
 
 ## Veröffentlichen (optional, erst wenn der Workflow läuft)
 
 Es gibt keine lokale Vorschau. Will die Person eine Oberfläche, gehst du so vor. Sie tippt keine Befehle.
 
-1. **Token:** aus der `url` in `.mcp.json`, der Teil `/g/<token>/mcp`. Steht dort `TOKEN-FEHLT`, sagt die Person Friedemann Bescheid.
+1. **Token:** aus der `url` in `.mcp.json`, der Teil `/g/<token>/mcp`. Steht dort `TOKEN-FEHLT`, sagt die Person Friedemann Bescheid. Den Token setzt du direkt in die curl-Befehle aus Schritt 4 und 6 ein, genau in der Form unten. Nur diese Form ist freigegeben. Bau dafür kein eigenes Skript und keinen Umweg, sonst muss die Person jeden Schritt einzeln bestätigen.
 2. **Build:** im Ordner `frontend-starter` (oder im eigenen App-Ordner) `npm install`, dann `npm run build`. Er muss grün sein.
 3. **Auf `main`:** committen, dann `git fetch origin main`, `git rebase origin/main`, `git push origin HEAD:main`. Nie Force. Die Person hat keinen GitHub-Login und kann keinen Pull Request mergen. Gebaut wird immer `main`.
-4. **Veröffentlichen:**
-   `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter" --data-urlencode $'env=NEXT_PUBLIC_N8N_BASE=https://n8n.ep-reisen.app\nNEXT_PUBLIC_HELLO_PATH=anna-hello'`
-   Das Beispiel passt zum Starter mit dem Hello-Webhook. Beim **ersten** Aufruf gibst du alle Variablen mit, die die App nutzt, als `env` mit je Zeile `KEY=VALUE`. Sie gelten nur beim ersten Aufruf. `base_dir` ist der Ordner mit der `package.json`, nie die Wurzel des Repos.
+4. **Veröffentlichen:** Leg zuerst im Repo die Datei `deploy.env` an, je Zeile eine Variable `KEY=VALUE`. Für den Starter mit dem Hello-Webhook:
+   ```
+   NEXT_PUBLIC_N8N_BASE=https://n8n.ep-reisen.app
+   NEXT_PUBLIC_HELLO_PATH=anna-hello
+   ```
+   Dann: `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter" --data-urlencode "env@deploy.env"`
+   Beim **ersten** Aufruf gibst du so alle Variablen mit, die die App nutzt. Sie gelten nur beim ersten Aufruf. In `deploy.env` steht nur Öffentliches (`NEXT_PUBLIC_*`), die Datei darf ins Repo. Schreib den Befehl in eine Zeile, ohne `$'…'` und ohne `\n`: Solche Befehle gibt die Sitzung nicht frei. `base_dir` ist der Ordner mit der `package.json`, nie die Wurzel des Repos.
 5. **Adresse:** Die Antwort enthält `url`, etwa `https://app-xxxxxxxx.friedemannschuetz.de`. Der erste Build dauert etwa drei Minuten. Bis dahin zeigt die Seite einen Fehler wie „no available server“.
 6. **Ausgang:** `curl -s -X POST https://hub.friedemannschuetz.de/status -d "token=<TOKEN>"` nennt Status, Commit und Fehlerzeilen des letzten Builds.
 7. **409** (Deploy-Key fehlt) oder ein anderer Fehler: Die Person sagt Friedemann Bescheid. Bau nichts um.

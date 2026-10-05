@@ -47,7 +47,7 @@ Ergebnis ist eine öffentliche Adresse wie `https://app-xxxxxxxx.friedemannschue
 
 1. `npm install` und `npm run build` im App-Ordner, der Build muss grün sein.
 2. Committen, dann `git fetch origin main`, `git rebase origin/main`, `git push origin HEAD:main`. Nie Force. Gebaut wird immer `main`.
-3. `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter"` und beim **ersten** Aufruf `--data-urlencode $'env=KEY=VALUE\nKEY2=VALUE2'`. Den Token nimmst du aus der `url` in `.mcp.json` (Teil `/g/<token>/mcp`).
+3. `curl -s -X POST https://hub.friedemannschuetz.de/deploy -d "token=<TOKEN>" -d "base_dir=/frontend-starter"` und beim **ersten** Aufruf `--data-urlencode "env@deploy.env"`, mit einer Datei `deploy.env` im Repo (je Zeile `KEY=VALUE`, nur `NEXT_PUBLIC_*`). Kein `$'…'` und kein `\n` im Befehl, sonst gibt die Sitzung ihn nicht frei. Den Token nimmst du aus der `url` in `.mcp.json` (Teil `/g/<token>/mcp`).
 4. Ausgang: `curl -s -X POST https://hub.friedemannschuetz.de/status -d "token=<TOKEN>"`.
 5. Antwort 409 (Deploy-Key fehlt) oder ein anderer Fehler: Die Person sagt Friedemann Bescheid.
 
