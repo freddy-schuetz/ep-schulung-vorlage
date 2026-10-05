@@ -29,7 +29,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 
 ## DataForSEO: Google-Angaben bekannter Betriebe
 
-- Für Adresse, Telefon, Öffnungszeiten, Bewertungen und Kategorien eines Betriebs, den man schon kennt, etwa eines Hotels oder Ausflugsziels.
+- Für Adresse, Telefon, Öffnungszeiten, Bewertungen und Kategorien eines Betriebs, den man schon kennt, etwa eines der eigenen Sportclubs.
 - Node HTTP Request, Methode POST, Adresse `https://api.dataforseo.com/v3/business_data/google/my_business_info/live`. Authentifizierung: Generic Credential Type, dann Basic Auth, dann das Credential „Schulung DataForSEO“ aus der Tabelle.
 - Body als JSON, eine Liste mit einer Aufgabe:
 

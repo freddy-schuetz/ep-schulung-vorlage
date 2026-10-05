@@ -1,6 +1,6 @@
 ---
 name: meetingnotizen
-description: Baut aus Besprechungsnotizen, Transkripten, PDF-Protokollen oder einer Sprachnotiz einen n8n-Workflow, der Zusammenfassung, Entscheidungen, Aufgaben und offene Fragen strukturiert ausgibt. Für einen Reiseveranstalter etwa Jour fixe zur Wintersaison, Nachbesprechung einer Reise oder Notizen nach einem Termin vor Ort. Verwenden, wenn jemand Notizen oder Protokolle automatisch auswerten, Aufgaben daraus ableiten oder aus einer Sprachnotiz einen Bericht machen will.
+description: Baut aus Besprechungsnotizen, Transkripten, PDF-Protokollen oder einer Sprachnotiz einen n8n-Workflow, der Zusammenfassung, Entscheidungen, Aufgaben und offene Fragen strukturiert ausgibt. Für einen Reiseveranstalter etwa Jour fixe zur Wintersaison, Nachbesprechung einer Reise oder Notizen nach einem Rundgang durch einen Sportclub. Verwenden, wenn jemand Notizen oder Protokolle automatisch auswerten, Aufgaben daraus ableiten oder aus einer Sprachnotiz einen Bericht machen will.
 ---
 
 # Meetingnotizen und Sprachnotizen strukturieren
@@ -11,7 +11,7 @@ Ziel: Aus Rohtext (Notizen, Transkript, PDF) oder einer kurzen Sprachnotiz wird 
 
 ## Wann verwenden
 - Jour fixe, Nachbesprechung einer Reise oder eines Events, Messe-Nachbereitung: Notizen sollen zu Protokoll und Aufgabenliste werden.
-- Nach einem Termin vor Ort: Eine Sprachnotiz soll zu einem kurzen Bericht werden.
+- Nach einem Rundgang durch einen Sportclub vor Saisonbeginn: Eine Sprachnotiz soll zu einem kurzen Bericht werden.
 - Aufgaben aus Besprechungen sollen in einer eigenen Tabelle oder als Mail an die eigene Adresse landen.
 
 Nicht passend: Terminfindung (eigener Ablauf).

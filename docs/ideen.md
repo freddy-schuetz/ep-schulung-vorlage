@@ -23,12 +23,12 @@ Jeden Morgen kommt eine kurze Mail mit Neuschnee, Schneehöhe und Temperatur fü
 - **Passender Skill:** `bericht-zeitgesteuert`
 - **Einstieg:** „Ich möchte jeden Morgen einen kurzen Schneebericht für drei Skigebiete per Mail bekommen. Hilf mir, meine Idee zu klären.“
 
-## 3. Ausflugsziele für eine Reise prüfen
+## 3. Unsere Sportclubs bei Google im Blick
 
-Für die Ausflugsziele einer geplanten Reise, etwa Bergbahn, Museum und Restaurant am Zielort, holt der Ablauf Adresse, Öffnungszeiten und Bewertung aus Google (über DataForSEO) und legt sie in deine Tabelle.
+Für die eigenen Häuser, etwa den Sportclub Lederer in Saalbach oder den Sportclub Schwendi in Davos, holt der Ablauf Bewertung, Anzahl der Bewertungen, Adresse und Telefon aus Google (über DataForSEO). Du bekommst eine Übersicht und siehst, wie die Häuser dastehen und ob bei Google etwas Falsches steht.
 
-- **Worauf du achtest:** Jede Abfrage kostet Geld. Teste mit genau einem Ziel. Gib Ort und Land mit, sonst sucht der Dienst in Deutschland.
-- **Einstieg:** „Ich möchte für die Ausflugsziele einer Reise die Angaben aus Google holen: Adresse, Öffnungszeiten und Bewertung. Hilf mir, meine Idee zu klären.“
+- **Worauf du achtest:** Jede Abfrage kostet Geld. Teste mit genau einem Haus. Gib Ort und Land mit, die Häuser liegen in Österreich, der Schweiz, Frankreich und Italien.
+- **Einstieg:** „Ich möchte für unsere Sportclubs die Angaben aus Google holen: Bewertung, Anzahl der Bewertungen, Adresse und Telefon, als Übersicht per Mail. Hilf mir, meine Idee zu klären.“
 
 ## 4. Bewertungen zusammenfassen
 
@@ -54,7 +54,7 @@ Du lädst eine Liste hoch. Der Ablauf findet fehlende Angaben und doppelte Eintr
 
 ## 7. Sprachnotiz wird Bericht
 
-Du sprichst eine kurze Notiz ein, etwa nach einem Termin vor Ort. Daraus wird ein ordentlicher kurzer Bericht.
+Du sprichst eine kurze Notiz ein, etwa nach einem Rundgang durch einen Sportclub vor Saisonbeginn. Daraus wird ein ordentlicher kurzer Bericht.
 
 - **Worauf du achtest:** Zum Testen sprichst du selbst etwas ein, andere Menschen nimmst du heute nicht auf. Die Aufnahme bleibt in n8n gespeichert und ist für alle mit dem gemeinsamen Login sichtbar.
 - **Passender Skill:** `meetingnotizen`
