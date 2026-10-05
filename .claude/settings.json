@@ -1,0 +1,65 @@
+{
+  "model": "opusplan",
+  "enabledMcpjsonServers": ["n8n-mcp"],
+  "permissions": {
+    "allow": [
+      "mcp__n8n-mcp__tools_documentation",
+      "mcp__n8n-mcp__n8n_health_check",
+      "mcp__n8n-mcp__n8n_list_workflows",
+      "mcp__n8n-mcp__n8n_get_workflow",
+      "mcp__n8n-mcp__search_nodes",
+      "mcp__n8n-mcp__get_node",
+      "mcp__n8n-mcp__search_templates",
+      "mcp__n8n-mcp__n8n_create_workflow",
+      "mcp__n8n-mcp__n8n_update_partial_workflow",
+      "mcp__n8n-mcp__n8n_validate_workflow",
+      "mcp__n8n-mcp__n8n_autofix_workflow",
+      "mcp__n8n-mcp__n8n_test_workflow",
+      "mcp__n8n-mcp__n8n_executions",
+      "mcp__n8n-mcp__n8n_deploy_template",
+      "mcp__n8n-mcp__n8n_manage_datatable",
+      "mcp__n8n-mcp__n8n_manage_folders",
+      "mcp__n8n-mcp__validate_node",
+      "mcp__n8n-mcp__validate_workflow",
+      "WebFetch(domain:friedemannschuetz.de)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(node --version)",
+      "Bash(git --version)",
+      "Bash(git clone:*)",
+      "Bash(git remote get-url:*)",
+      "Bash(git status:*)",
+      "Bash(curl -s -X POST https://hub.friedemannschuetz.de/deploy:*)",
+      "Bash(curl -s -X POST https://hub.friedemannschuetz.de/status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git rebase:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "mcp__n8n-mcp__n8n_delete_workflow",
+      "mcp__n8n-mcp__n8n_update_full_workflow",
+      "mcp__n8n-mcp__n8n_manage_credentials",
+      "mcp__n8n-mcp__n8n_audit_instance"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__n8n-mcp__n8n_create_workflow|mcp__n8n-mcp__n8n_update_partial_workflow|mcp__n8n-mcp__n8n_update_full_workflow",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-backup.js\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

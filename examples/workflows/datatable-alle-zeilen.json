@@ -1,0 +1,190 @@
+{
+  "name": "Data Table: alle Zeilen holen (Demo)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Test starten",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "k1",
+              "name": "tabellen_id",
+              "value": "HIER_DEINE_TABELLEN_ID",
+              "type": "string"
+            },
+            {
+              "id": "k2",
+              "name": "mindestens",
+              "value": 1,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "konfig",
+      "name": "Konfiguration",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:5678/api/v1/data-tables/{{ $json.tabellen_id }}/rows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "200"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000,
+          "pagination": {
+            "pagination": {
+              "paginationMode": "updateAParameterInEachRequest",
+              "parameters": {
+                "parameters": [
+                  {
+                    "type": "qs",
+                    "name": "cursor",
+                    "value": "={{ $response.body.nextCursor }}"
+                  }
+                ]
+              },
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !$response.body.nextCursor }}",
+              "limitPagesFetched": true,
+              "maxRequests": 50
+            }
+          }
+        }
+      },
+      "id": "holen",
+      "name": "Alle Zeilen holen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        120,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Alle Seiten zu einer Liste zusammenführen.\n// Der HTTP-Node hat pro Seite ein Item geliefert, jedes mit einem data-Array.\nconst alle = [];\nfor (const seite of $input.all()) {\n  for (const zeile of (seite.json.data || [])) alle.push(zeile);\n}\n\n// WICHTIG: auf eine positive Marke prüfen, nicht auf den Statuscode.\n// Ein grüner Lauf mit 50 Zeilen sieht genauso aus wie einer mit 1631.\n// Trage hier ein, wie viele Zeilen du mindestens erwartest.\nconst MINDESTENS = Number($('Konfiguration').first().json.mindestens) || 1;\nif (alle.length < MINDESTENS) {\n  throw new Error('Nur ' + alle.length + ' Zeilen geladen, erwartet waren mindestens '\n    + MINDESTENS + '. Entweder ist die Tabelle kleiner als gedacht, oder es greift'\n    + ' ein stiller Zeilendeckel.');\n}\n\nreturn [{ json: {\n  seiten_geholt: $input.all().length,\n  zeilen_gesamt: alle.length,\n  erste_zeile: alle[0] || null,\n  letzte_zeile: alle[alle.length - 1] || null\n} }];"
+      },
+      "id": "zusammen",
+      "name": "Zusammenführen und prüfen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        340,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Warum es dieses Beispiel gibt\n\nDer Node **Data Table** liefert ohne „Return All“ nur **50 Zeilen**, auch wenn du `limit` höher stellst.\nDie **n8n-API** nimmt höchstens `limit=200` und antwortet bei mehr mit **0 Zeilen**.\n\n**Beide melden keinen Fehler.** Der Workflow läuft grün durch und verarbeitet trotzdem nur einen Bruchteil der Daten. Das fällt oft erst auf, wenn ein Ergebnis unerklärlich klein ist.\n\nDieser Workflow holt **alle** Zeilen, indem er sich mit einem Cursor durch die Seiten hangelt.",
+        "height": 340,
+        "width": 480,
+        "color": 3
+      },
+      "id": "doku-warum",
+      "name": "Doku Warum",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Nicht für die Schulung\n\nDieses Beispiel braucht ein Credential mit dem API-Schlüssel der n8n. In der Schulung gibt es dafür keins, und du legst keins an. Deine Testtabellen sind klein: Dort reicht der Node „Data Table“ mit „Return All“.\n\n**Später in einer eigenen n8n:**\n1. Credential vom Typ **Header Auth** anlegen: Name `X-N8N-API-KEY`, Wert dein n8n-API-Key.\n2. Im Node `Alle Zeilen holen` dieses Credential auswählen.\n3. Im Node `Konfiguration` die Tabellen-ID eintragen. Du findest sie in der Adresszeile, wenn du die Data Table in n8n öffnest.",
+        "height": 340,
+        "width": 480,
+        "color": 4
+      },
+      "id": "doku-einrichten",
+      "name": "Doku Einrichten",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Die Regel dahinter\n\n**Ein grüner Lauf ist kein Beweis.** Er sagt nur, dass nichts abgestürzt ist.\n\nDer Code-Node prüft deshalb auf eine **positive Marke**: Wenn weniger Zeilen ankommen als erwartet, bricht er mit Klartext ab, statt stillschweigend mit zu wenig Daten weiterzuarbeiten.\n\nDiese Regel gilt überall, nicht nur bei Data Tables: **Prüfe, ob das erwartete Ergebnis da ist, nicht ob der Aufruf funktioniert hat.**",
+        "height": 340,
+        "width": 460,
+        "color": 6
+      },
+      "id": "doku-regel",
+      "name": "Doku Prüfen",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        -180
+      ]
+    }
+  ],
+  "connections": {
+    "Test starten": {
+      "main": [
+        [
+          {
+            "node": "Konfiguration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Konfiguration": {
+      "main": [
+        [
+          {
+            "node": "Alle Zeilen holen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alle Zeilen holen": {
+      "main": [
+        [
+          {
+            "node": "Zusammenführen und prüfen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

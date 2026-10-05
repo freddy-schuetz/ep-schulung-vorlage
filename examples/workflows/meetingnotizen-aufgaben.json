@@ -1,0 +1,624 @@
+{
+  "name": "Meetingnotizen strukturieren (Beispiel)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Meetingnotizen strukturieren\n\n**Was passiert:** Du gibst Notizen oder ein Transkript in ein Formular ein (oder lädst ein PDF hoch). Die KI macht daraus ein Kurzprotokoll mit Entscheidungen, Aufgaben und offenen Fragen. Das Ergebnis siehst du sofort im Browser.\n\n**Testen:** Oben auf „Execute workflow“ klicken. Das Formular öffnet sich. Den Text aus der Notiz „Beispieltext“ einfügen und absenden.\n\n**Ohne Freigabe testbar:** Kein Postfach, kein Teams nötig. Nur dein KI-Zugang.",
+        "height": 300,
+        "width": 620,
+        "color": 4
+      },
+      "id": "b1000000-0000-4000-8000-000000000001",
+      "name": "Doku: Überblick",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Vor dem Start eintragen\n1. **Sprachmodell:** das **KI-Credential** aus der Tabelle in `CLAUDE.md` auswählen. Modell im Knoten prüfen.\n2. **Formular:** Der Pfad unter Options heißt `tnx-meetingnotizen`. Setz statt `tnx` dein Kürzel ein, zum Beispiel `tn3-meetingnotizen`. In der n8n darf jeder Pfad nur einmal vorkommen.\n3. **Optional Aufgaben speichern:** Data Table mit Kürzel anlegen, zum Beispiel `tn3_meeting_aufgaben`, mit den Spalten besprechung, aufgabe, verantwortlich, faellig_bis, status (alle Text). Den Namen im Knoten „Aufgaben speichern“ eintragen und den Knoten aktivieren (Knoten markieren, Taste D).",
+        "height": 300,
+        "width": 520,
+        "color": 6
+      },
+      "id": "b1000000-0000-4000-8000-000000000002",
+      "name": "Doku: Vorbereitung",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        600,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Beispieltext (erfunden)\nJour fixe Wintersaison, 8.10.2026. Anwesend: Leitung Gruppenreisen, Kundenservice, Events.\nSkireise Februar: 42 von 60 Plätzen gebucht. Entschieden: Anmeldeschluss ist der 15.12.\nKundenservice aktualisiert die Reiseseite bis 20.10.\nMarketing schickt den Newsletter-Teaser bis 25.10.\nOffen: Wer fragt beim Busunternehmen wegen eines zweiten Busses an? Braucht es für den Eventabend eine Schlechtwetter-Variante?",
+        "height": 300,
+        "width": 520,
+        "color": 1
+      },
+      "id": "b1000000-0000-4000-8000-000000000003",
+      "name": "Doku: Beispieltext",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Text holen\nWenn Notizen im Textfeld stehen, werden sie genommen. Sonst wird das PDF ausgelesen.\n**Achtung:** Ein eingescanntes PDF ohne Textebene liefert leeren Text. Kommt gar keine Datei an (leeres Formular), meldet „PDF auslesen“ einen Fehler. Der Knoten steht deshalb auf „On Error: Continue“ und reicht einfach leeren Text weiter. In allen diesen Fällen zeigt das Formular einen Hinweis statt eines leeren Protokolls.",
+        "height": 240,
+        "width": 520,
+        "color": 5
+      },
+      "id": "b1000000-0000-4000-8000-000000000004",
+      "name": "Doku: Text holen",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        500,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Protokoll strukturieren\nDer **Information Extractor** füllt ein festes Schema: Titel, Zusammenfassung, Entscheidungen, Aufgaben, offene Fragen. So kommt immer dieselbe Struktur heraus.\nDie KI übernimmt nur, was im Text steht. Fehlt etwas (z. B. ein Termin), bleibt das Feld leer.",
+        "height": 240,
+        "width": 320,
+        "color": 6
+      },
+      "id": "b1000000-0000-4000-8000-000000000005",
+      "name": "Doku: KI",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        -420
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Ergebnis\nOben: Die Aufgaben werden einzeln aufgelistet. Mit „Aufgaben speichern“ landen sie in einer Data Table (erst Tabelle anlegen, dann Knoten aktivieren).\nUnten: Aus dem Schema wird ein lesbares Protokoll und im Browser angezeigt.\nDer untere Zweig liegt bewusst unten: n8n arbeitet Zweige von oben nach unten ab, und die Formular-Endseite muss im letzten Zweig liegen.",
+        "height": 240,
+        "width": 620,
+        "color": 3
+      },
+      "id": "b1000000-0000-4000-8000-000000000006",
+      "name": "Doku: Ergebnis",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Nächster Schritt nach der Schulung (braucht Freigabe)\n- Protokoll als **Outlook-Entwurf** an die Teilnehmenden: Postfachzugriff braucht in den meisten Microsoft-365-Organisationen eine Admin-Freigabe.\n- In einen **Teams-Kanal** posten oder Teams-Transkripte automatisch abholen: immer Admin-Freigabe.\n- Bis dahin: Transkript aus Teams herunterladen und hier einfügen.\n- Vor jedem Versand prüft ein Mensch das Protokoll.\n- In der Schulung verbindest du kein Postfach und kein Konto. Das ist die echte n8n von E&P.",
+        "height": 320,
+        "width": 620,
+        "color": 7
+      },
+      "id": "b1000000-0000-4000-8000-000000000007",
+      "name": "Doku: Mit Freigabe",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Meetingnotizen strukturieren",
+        "formDescription": "Füge deine Notizen ein oder lade ein PDF hoch. Bitte nur Beispieltexte oder freigegebene Protokolle verwenden.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Besprechung",
+              "fieldType": "text",
+              "placeholder": "z. B. Jour fixe Wintersaison",
+              "requiredField": false
+            },
+            {
+              "fieldLabel": "Notizen",
+              "fieldType": "textarea",
+              "placeholder": "Notizen oder Transkript hier einfügen",
+              "requiredField": false
+            },
+            {
+              "fieldLabel": "Datei",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf",
+              "requiredField": false
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "path": "tnx-meetingnotizen",
+          "buttonLabel": "Protokoll erstellen"
+        }
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a1",
+      "name": "Formular: Notizen einreichen",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1000000-0000-4000-8000-000000000001",
+              "leftValue": "={{ ($json.Notizen || '').trim() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a2",
+      "name": "Text eingefügt?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1000000-0000-4000-8000-000000000002",
+              "name": "text",
+              "value": "={{ $json.Notizen }}",
+              "type": "string"
+            },
+            {
+              "id": "c1000000-0000-4000-8000-000000000003",
+              "name": "besprechung",
+              "value": "={{ $json.Besprechung || 'Besprechung ohne Titel' }}",
+              "type": "string"
+            },
+            {
+              "id": "c1000000-0000-4000-8000-000000000004",
+              "name": "quelle",
+              "value": "Textfeld",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a3",
+      "name": "Text aus Formular",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "Datei",
+        "options": {
+          "joinPages": true
+        }
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a4",
+      "name": "PDF auslesen",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1000000-0000-4000-8000-000000000005",
+              "name": "text",
+              "value": "={{ $json.text || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "c1000000-0000-4000-8000-000000000006",
+              "name": "besprechung",
+              "value": "={{ $('Formular: Notizen einreichen').item.json.Besprechung || 'Besprechung ohne Titel' }}",
+              "type": "string"
+            },
+            {
+              "id": "c1000000-0000-4000-8000-000000000007",
+              "name": "quelle",
+              "value": "PDF",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a5",
+      "name": "Text aus PDF",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        760,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1000000-0000-4000-8000-000000000008",
+              "leftValue": "={{ ($json.text || '').trim().length }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a6",
+      "name": "Genug Text?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        980,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "text",
+        "completionTitle": "Kein Text gefunden",
+        "completionMessage": "Es kam zu wenig Text an. Mögliche Gründe: Das Formular war leer, der eingefügte Text war zu kurz, oder das PDF ist ein Scan ohne Textebene oder ließ sich nicht lesen. Bitte die Notizen direkt einfügen oder ein PDF mit markierbarem Text verwenden.",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a7",
+      "name": "Hinweis: kein Text",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.3,
+      "position": [
+        1240,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "text": "=Besprechung: {{ $json.besprechung }}\n\nNotizen:\n{{ $json.text }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"titel\": { \"type\": \"string\", \"description\": \"Kurzer Titel der Besprechung\" },\n    \"datum\": { \"type\": \"string\", \"description\": \"Datum der Besprechung, nur wenn im Text genannt, sonst leer\" },\n    \"zusammenfassung\": { \"type\": \"string\", \"description\": \"3 bis 5 Sätze, sachlich\" },\n    \"entscheidungen\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },\n    \"aufgaben\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"aufgabe\": { \"type\": \"string\" },\n          \"verantwortlich\": { \"type\": \"string\", \"description\": \"Rolle oder Name wie im Text, sonst leer\" },\n          \"faellig_bis\": { \"type\": \"string\", \"description\": \"Termin wie im Text, sonst leer\" },\n          \"beleg\": { \"type\": \"string\", \"description\": \"Kurzes wörtliches Zitat aus den Notizen\" }\n        },\n        \"required\": [\"aufgabe\"]\n      }\n    },\n    \"offene_fragen\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }\n  },\n  \"required\": [\"titel\", \"zusammenfassung\", \"entscheidungen\", \"aufgaben\", \"offene_fragen\"]\n}",
+        "options": {
+          "systemPromptTemplate": "Du strukturierst Besprechungsnotizen eines Reiseveranstalters auf Deutsch.\nÜbernimm nur, was im Text steht. Erfinde keine Namen, Termine, Zahlen oder Zusagen.\nWenn eine Angabe fehlt, lass das Feld leer.\nRechne nichts aus und runde nichts. Zahlen übernimmst du wörtlich."
+        }
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a8",
+      "name": "Protokoll strukturieren (KI)",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.2,
+      "position": [
+        1240,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-opus-5",
+          "cachedResultName": "Claude Opus 5"
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000a9",
+      "name": "Sprachmodell (Claude)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        1240,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1000000-0000-4000-8000-000000000009",
+              "name": "protokoll_markdown",
+              "value": "=## {{ $json.output.titel }}\n{{ $json.output.datum ? 'Datum: ' + $json.output.datum : '' }}\n\n**Zusammenfassung**\n\n{{ $json.output.zusammenfassung }}\n\n**Entscheidungen**\n\n{{ ($json.output.entscheidungen || []).map(e => '- ' + e).join('\\n') || '- keine festgehalten' }}\n\n**Aufgaben**\n\n{{ ($json.output.aufgaben || []).map(a => '- ' + a.aufgabe + ' (verantwortlich: ' + (a.verantwortlich || 'offen') + ', bis: ' + (a.faellig_bis || 'offen') + ')').join('\\n') || '- keine' }}\n\n**Offene Fragen**\n\n{{ ($json.output.offene_fragen || []).map(f => '- ' + f).join('\\n') || '- keine' }}\n\n_KI-Entwurf. Bitte vor dem Weitergeben prüfen._",
+              "type": "string"
+            },
+            {
+              "id": "c1000000-0000-4000-8000-000000000010",
+              "name": "anzahl_aufgaben",
+              "value": "={{ ($json.output.aufgaben || []).length }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000b1",
+      "name": "Protokoll als Text",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1580,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "markdownToHtml",
+        "markdown": "={{ $json.protokoll_markdown }}",
+        "destinationKey": "protokoll_html",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000b2",
+      "name": "In HTML umwandeln",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $json.protokoll_html }}",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000b3",
+      "name": "Ergebnis anzeigen",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.3,
+      "position": [
+        2020,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.aufgaben",
+        "include": "noOtherFields",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000b4",
+      "name": "Aufgaben einzeln",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1580,
+        -140
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "tnx_meeting_aufgaben"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "besprechung": "={{ $('Protokoll strukturieren (KI)').item.json.output.titel }}",
+            "aufgabe": "={{ $json.aufgabe }}",
+            "verantwortlich": "={{ $json.verantwortlich || 'offen' }}",
+            "faellig_bis": "={{ $json.faellig_bis || 'offen' }}",
+            "status": "offen"
+          },
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-0000000000b5",
+      "name": "Aufgaben speichern",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1800,
+        -140
+      ],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Formular: Notizen einreichen": {
+      "main": [
+        [
+          {
+            "node": "Text eingefügt?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text eingefügt?": {
+      "main": [
+        [
+          {
+            "node": "Text aus Formular",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "PDF auslesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PDF auslesen": {
+      "main": [
+        [
+          {
+            "node": "Text aus PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text aus Formular": {
+      "main": [
+        [
+          {
+            "node": "Genug Text?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text aus PDF": {
+      "main": [
+        [
+          {
+            "node": "Genug Text?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Genug Text?": {
+      "main": [
+        [
+          {
+            "node": "Protokoll strukturieren (KI)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Hinweis: kein Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sprachmodell (Claude)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Protokoll strukturieren (KI)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Protokoll strukturieren (KI)": {
+      "main": [
+        [
+          {
+            "node": "Aufgaben einzeln",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Protokoll als Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Protokoll als Text": {
+      "main": [
+        [
+          {
+            "node": "In HTML umwandeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "In HTML umwandeln": {
+      "main": [
+        [
+          {
+            "node": "Ergebnis anzeigen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aufgaben einzeln": {
+      "main": [
+        [
+          {
+            "node": "Aufgaben speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

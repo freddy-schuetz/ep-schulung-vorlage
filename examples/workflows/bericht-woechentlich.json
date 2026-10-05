@@ -1,0 +1,680 @@
+{
+  "name": "Wochenbericht Anfragen (Beispiel)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Wochenbericht Anfragen\n\n**Was passiert:** Beispieldaten einer Woche (Anfragen nach Kanal und Thema) werden **von n8n gezählt**, nicht von der KI. Die KI schreibt nur eine kurze Einordnung zu den fertigen Zahlen. Heraus kommt ein Bericht als HTML-Datei.\n\n**Testen:** „Execute workflow“ klicken. Die Datei im Knoten „Als HTML-Datei“ ansehen oder herunterladen.\n\n**Ohne Postfach testbar:** Die Daten stehen im Knoten „Beispieldaten Woche“.",
+        "height": 320,
+        "width": 640,
+        "color": 4
+      },
+      "id": "f3000000-0000-4000-8000-000000000001",
+      "name": "Doku: Überblick",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Vor dem Start eintragen\n1. **Sprachmodell:** das **KI-Credential** aus der Tabelle in `CLAUDE.md` auswählen. Modell im Knoten prüfen.\n2. **Eigene Tabelle:** Data Table mit Kürzel anlegen, zum Beispiel `tn3_anfragen`, mit den Spalten datum (Datum), kanal (Text), thema (Text), anzahl (Zahl). Mit ein paar Testzeilen füllen und den Namen im Knoten „Anfragen der letzten 7 Tage lesen“ eintragen.\n3. **Tabelle anschließen:** Die Verbindung von „Test starten“ zu „Beispieldaten Woche“ löschen und „Test starten“ mit „Anfragen der letzten 7 Tage lesen“ verbinden. Diesen Knoten und „Jeden Montag 7 Uhr“ aktivieren (Knoten markieren, Taste D). Die beiden Beispieldaten-Knoten löschen. Nur deaktivieren reicht nicht: Ein deaktivierter Knoten reicht seine Eingangsdaten unverändert weiter.\n4. Einmal von Hand testen (auch mit leerer Tabelle), erst dann den Workflow scharf schalten.",
+        "height": 420,
+        "width": 580,
+        "color": 6
+      },
+      "id": "f3000000-0000-4000-8000-000000000002",
+      "name": "Doku: Vorbereitung",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Zählen ohne KI\n**Summarize** addiert die Anfragen je Kanal und je Thema. **Aggregate** und **Merge** packen beides in einen Datensatz. „Kennzahlen berechnen“ bildet Gesamtsumme und Anteile. So stimmen die Zahlen immer.",
+        "height": 200,
+        "width": 480,
+        "color": 5
+      },
+      "id": "f3000000-0000-4000-8000-000000000003",
+      "name": "Doku: Zählen",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        660,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Einordnung (KI)\nDie KI bekommt die fertigen Zahlen und schreibt 3 bis 4 Sätze plus 2 Vorschläge. Regel: keine eigenen Rechnungen, keine erfundenen Gründe.\nIm Bericht stehen die Zahlen aus n8n, der KI-Text ist nur die Einordnung.",
+        "height": 220,
+        "width": 400,
+        "color": 6
+      },
+      "id": "f3000000-0000-4000-8000-000000000004",
+      "name": "Doku: KI",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        -320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Ergebnis und nächster Schritt\n- **Jetzt:** HTML-Datei im Knoten „Als HTML-Datei“ herunterladen.\n- **Per Mail an dich:** den Node „Send Email“ anhängen (Credential „SMTP account“, Absender noreply@ep-reisen.de), Empfänger nur deine eigene Adresse.\n- **Leere Woche:** Liefert die Tabelle keine Zeilen, sorgt „Always Output Data“ am Tabellen-Knoten für ein leeres Item. „Zeilen vorhanden?“ schickt es zu „Hinweis: keine Daten“ statt in einen leeren Bericht, die KI wird nicht aufgerufen.\n- In der E&P-n8n verbindest du kein Postfach und kein Konto. Das ist die echte n8n von E&P.",
+        "height": 380,
+        "width": 640,
+        "color": 7
+      },
+      "id": "f3000000-0000-4000-8000-000000000005",
+      "name": "Doku: Ergebnis",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        -460
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f3000000-0000-4000-8000-0000000000a1",
+      "name": "Test starten",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"quelle\": \"Beispieldaten Reiseveranstalter (erfunden)\",\n  \"zeilen\": [\n    { \"datum\": \"{{ $now.minus({ days: 7 }).toISODate() }}\", \"kanal\": \"Telefon\", \"thema\": \"Skireisen\", \"anzahl\": 6 },\n    { \"datum\": \"{{ $now.minus({ days: 7 }).toISODate() }}\", \"kanal\": \"E-Mail\", \"thema\": \"Gruppenreisen\", \"anzahl\": 4 },\n    { \"datum\": \"{{ $now.minus({ days: 6 }).toISODate() }}\", \"kanal\": \"Website\", \"thema\": \"Events\", \"anzahl\": 11 },\n    { \"datum\": \"{{ $now.minus({ days: 6 }).toISODate() }}\", \"kanal\": \"E-Mail\", \"thema\": \"Skireisen\", \"anzahl\": 5 },\n    { \"datum\": \"{{ $now.minus({ days: 5 }).toISODate() }}\", \"kanal\": \"Telefon\", \"thema\": \"Anreise\", \"anzahl\": 3 },\n    { \"datum\": \"{{ $now.minus({ days: 4 }).toISODate() }}\", \"kanal\": \"Website\", \"thema\": \"Skireisen\", \"anzahl\": 9 },\n    { \"datum\": \"{{ $now.minus({ days: 4 }).toISODate() }}\", \"kanal\": \"E-Mail\", \"thema\": \"Events\", \"anzahl\": 7 },\n    { \"datum\": \"{{ $now.minus({ days: 3 }).toISODate() }}\", \"kanal\": \"Telefon\", \"thema\": \"Gruppenreisen\", \"anzahl\": 2 },\n    { \"datum\": \"{{ $now.minus({ days: 2 }).toISODate() }}\", \"kanal\": \"Website\", \"thema\": \"Events\", \"anzahl\": 14 },\n    { \"datum\": \"{{ $now.minus({ days: 2 }).toISODate() }}\", \"kanal\": \"E-Mail\", \"thema\": \"Anreise\", \"anzahl\": 3 },\n    { \"datum\": \"{{ $now.minus({ days: 1 }).toISODate() }}\", \"kanal\": \"Telefon\", \"thema\": \"Skireisen\", \"anzahl\": 4 },\n    { \"datum\": \"{{ $now.minus({ days: 1 }).toISODate() }}\", \"kanal\": \"Website\", \"thema\": \"Skireisen\", \"anzahl\": 10 }\n  ]\n}",
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a2",
+      "name": "Beispieldaten Woche",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "zeilen",
+        "include": "noOtherFields",
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a3",
+      "name": "Zeilen einzeln",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a4",
+      "name": "Jeden Montag 7 Uhr",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        200
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "tnx_anfragen"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "datum",
+              "condition": "gte",
+              "keyValue": "={{ $now.minus({ days: 7 }).startOf('day').toISO() }}"
+            },
+            {
+              "keyName": "datum",
+              "condition": "lt",
+              "keyValue": "={{ $now.startOf('day').toISO() }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a5",
+      "name": "Anfragen der letzten 7 Tage lesen",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        200
+      ],
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e3000000-0000-4000-8000-000000000007",
+              "leftValue": "={{ $json.anzahl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000c1",
+      "name": "Zeilen vorhanden?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3000000-0000-4000-8000-000000000008",
+              "name": "hinweis",
+              "value": "=Keine Anfragen im Zeitraum {{ $now.minus({ days: 7 }).toFormat('dd.MM.yyyy') }} bis {{ $now.minus({ days: 1 }).toFormat('dd.MM.yyyy') }} gefunden. Kein Bericht erstellt, keine KI-Anfrage.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000c2",
+      "name": "Hinweis: keine Daten",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "anzahl"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "kanal",
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a6",
+      "name": "Summe je Kanal",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "kanaele",
+        "include": "allFields"
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a7",
+      "name": "Kanäle sammeln",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        920,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "anzahl"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "thema",
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a8",
+      "name": "Summe je Thema",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "themen",
+        "include": "allFields"
+      },
+      "id": "f3000000-0000-4000-8000-0000000000a9",
+      "name": "Themen sammeln",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        920,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b1",
+      "name": "Zusammenführen",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1140,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3000000-0000-4000-8000-000000000001",
+              "name": "zeitraum",
+              "value": "={{ $now.minus({ days: 7 }).toFormat('dd.MM.yyyy') }} bis {{ $now.minus({ days: 1 }).toFormat('dd.MM.yyyy') }}",
+              "type": "string"
+            },
+            {
+              "id": "e3000000-0000-4000-8000-000000000002",
+              "name": "gesamt",
+              "value": "={{ $json.kanaele.reduce((summe, k) => summe + k.sum_anzahl, 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "e3000000-0000-4000-8000-000000000003",
+              "name": "kanaele_text",
+              "value": "={{ $json.kanaele.slice().sort((a, b) => b.sum_anzahl - a.sum_anzahl).map(k => '- ' + k.kanal + ': ' + k.sum_anzahl + ' (' + Math.round(k.sum_anzahl * 100 / $json.kanaele.reduce((s, x) => s + x.sum_anzahl, 0)) + ' %)').join('\\n') }}",
+              "type": "string"
+            },
+            {
+              "id": "e3000000-0000-4000-8000-000000000004",
+              "name": "themen_text",
+              "value": "={{ $json.themen.slice().sort((a, b) => b.sum_anzahl - a.sum_anzahl).map(t => '- ' + t.thema + ': ' + t.sum_anzahl + ' (' + Math.round(t.sum_anzahl * 100 / $json.themen.reduce((s, x) => s + x.sum_anzahl, 0)) + ' %)').join('\\n') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b2",
+      "name": "Kennzahlen berechnen",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Du schreibst eine kurze Einordnung für den Wochenbericht eines Reiseveranstalters für Gruppenreisen, Skireisen und Events.\n\nZeitraum: {{ $json.zeitraum }}\nAnfragen gesamt: {{ $json.gesamt }}\n\nNach Kanal:\n{{ $json.kanaele_text }}\n\nNach Thema:\n{{ $json.themen_text }}\n\nRegeln:\n- Verwende nur diese Zahlen. Rechne nichts neu, bilde keine eigenen Summen, Differenzen oder Prozente.\n- Nenne keine Gründe, die nicht in den Daten stehen. Vermutungen formulierst du als offene Frage.\n- 3 bis 4 Sätze Einordnung, danach genau 2 Vorschläge für die kommende Woche als Liste mit Bindestrich.\n- Deutsch, sachlich, ohne Überschrift.",
+        "hasOutputParser": false
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b3",
+      "name": "Einordnung schreiben (KI)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1580,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-opus-5",
+          "cachedResultName": "Claude Opus 5"
+        },
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b4",
+      "name": "Sprachmodell (Claude)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        1580,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e3000000-0000-4000-8000-000000000005",
+              "name": "betreff",
+              "value": "=Wochenbericht Anfragen {{ $('Kennzahlen berechnen').item.json.zeitraum }}",
+              "type": "string"
+            },
+            {
+              "id": "e3000000-0000-4000-8000-000000000006",
+              "name": "bericht_markdown",
+              "value": "=# Wochenbericht Anfragen\n\nZeitraum: {{ $('Kennzahlen berechnen').item.json.zeitraum }}\n\n## Zahlen (von n8n berechnet)\n\nAnfragen gesamt: **{{ $('Kennzahlen berechnen').item.json.gesamt }}**\n\n**Nach Kanal**\n\n{{ $('Kennzahlen berechnen').item.json.kanaele_text }}\n\n**Nach Thema**\n\n{{ $('Kennzahlen berechnen').item.json.themen_text }}\n\n## Einordnung (KI-Entwurf, bitte prüfen)\n\n{{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b5",
+      "name": "Bericht zusammensetzen",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1840,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "markdownToHtml",
+        "markdown": "={{ $json.bericht_markdown }}",
+        "destinationKey": "bericht_html",
+        "options": {
+          "completeHTMLDocument": true
+        }
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b6",
+      "name": "In HTML umwandeln",
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        2060,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "bericht_html",
+        "binaryPropertyName": "data",
+        "options": {
+          "fileName": "=wochenbericht-{{ $now.toFormat('yyyy-MM-dd') }}.html"
+        }
+      },
+      "id": "f3000000-0000-4000-8000-0000000000b7",
+      "name": "Als HTML-Datei",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2280,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Test starten": {
+      "main": [
+        [
+          {
+            "node": "Beispieldaten Woche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Beispieldaten Woche": {
+      "main": [
+        [
+          {
+            "node": "Zeilen einzeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zeilen einzeln": {
+      "main": [
+        [
+          {
+            "node": "Summe je Kanal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summe je Thema",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Jeden Montag 7 Uhr": {
+      "main": [
+        [
+          {
+            "node": "Anfragen der letzten 7 Tage lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anfragen der letzten 7 Tage lesen": {
+      "main": [
+        [
+          {
+            "node": "Zeilen vorhanden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zeilen vorhanden?": {
+      "main": [
+        [
+          {
+            "node": "Summe je Kanal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Summe je Thema",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Hinweis: keine Daten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summe je Kanal": {
+      "main": [
+        [
+          {
+            "node": "Kanäle sammeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summe je Thema": {
+      "main": [
+        [
+          {
+            "node": "Themen sammeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kanäle sammeln": {
+      "main": [
+        [
+          {
+            "node": "Zusammenführen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Themen sammeln": {
+      "main": [
+        [
+          {
+            "node": "Zusammenführen",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Zusammenführen": {
+      "main": [
+        [
+          {
+            "node": "Kennzahlen berechnen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kennzahlen berechnen": {
+      "main": [
+        [
+          {
+            "node": "Einordnung schreiben (KI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sprachmodell (Claude)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Einordnung schreiben (KI)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Einordnung schreiben (KI)": {
+      "main": [
+        [
+          {
+            "node": "Bericht zusammensetzen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bericht zusammensetzen": {
+      "main": [
+        [
+          {
+            "node": "In HTML umwandeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "In HTML umwandeln": {
+      "main": [
+        [
+          {
+            "node": "Als HTML-Datei",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Als HTML-Datei": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  }
+}

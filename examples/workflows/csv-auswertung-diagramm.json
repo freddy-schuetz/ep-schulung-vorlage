@@ -1,0 +1,856 @@
+{
+  "name": "CSV-Auswertung mit Diagramm",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Tabelle rein, Diagramm und Einordnung raus\n\n1. **Datei hochladen** (CSV oder XLSX) über das Formular, oder zum Testen **Beispieldaten** per Klick.\n2. **Extract from File** macht aus der Datei Zeilen.\n3. **Zahlen bereinigen** und leere Zeilen aussortieren.\n4. **Summieren je Monat** und **Kennzahlen berechnen**. Das rechnen Knoten, nicht die KI.\n5. **KI** schreibt nur eine kurze Einordnung aus den fertigen Zahlen.\n6. **QuickChart** zeichnet das Balkendiagramm.\n\nErwartete Spalten: `monat`, `ort`, `naechtigungen`, `ankuenfte`. Die Beispieldaten sind erfunden.\n\n**Datenschutz:** QuickChart schickt die Monatssummen an den externen Dienst quickchart.io. Keine Personendaten ins Diagramm.",
+        "height": 400,
+        "width": 640,
+        "color": 4
+      },
+      "id": "c5a00000-0000-4000-8000-000000000001",
+      "name": "Doku: Überblick",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Zwei Eingänge\n**Formular:** Test-URL öffnen, Datei wählen.\n**Manuell:** nutzt die erfundene CSV aus *Beispiel-CSV*. Semikolon als Trennzeichen, so wie Excel in Deutschland meist speichert.",
+        "height": 130,
+        "width": 700,
+        "color": 7
+      },
+      "id": "c5a00000-0000-4000-8000-000000000002",
+      "name": "Doku: Eingang",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "Nächtigungen auswerten",
+        "formDescription": "Lade eine CSV- oder XLSX-Datei hoch. Die Spaltennamen in der Kopfzeile müssen genau so heißen (ohne Umlaute): monat, ort, naechtigungen, ankuenfte. Bei CSV ist das Trennzeichen ein Semikolon. Du bekommst ein Diagramm und eine kurze Einordnung.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Datei",
+              "fieldName": "Datei",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".csv,.xlsx",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "onReceived",
+        "options": {
+          "path": "tnx-csv-auswertung",
+          "buttonLabel": "Auswerten",
+          "appendAttribution": false
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-00000000000a",
+      "name": "Formular: Datei hochladen",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        -40
+      ],
+      "webhookId": "c5a00000-0000-4000-8000-00000000f001"
+    },
+    {
+      "parameters": {},
+      "id": "c5a00000-0000-4000-8000-00000000000b",
+      "name": "Start: Beispieldaten testen",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "csv",
+              "value": "monat;ort;naechtigungen;ankuenfte\n2026-01;Beispielberg;18450;5120\n2026-01;Beispielsee;9320;2870\n2026-02;Beispielberg;21030;5790\n2026-02;Beispielsee;10110;3050\n2026-03;Beispielberg;15200;4480\n2026-03;Beispielsee;8740;2610\n2026-04;Beispielberg;9870;3120\n2026-04;Beispielsee;7650;2380\n2026-05;Beispielberg;11980;3690\n2026-05;Beispielsee;12430;3910\n2026-06;Beispielberg;16420;4870\n2026-06;Beispielsee;17890;5230\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-00000000000c",
+      "name": "Beispiel-CSV (erfunden)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "csv",
+        "binaryPropertyName": "Datei",
+        "options": {
+          "fileName": "naechtigungen-beispiel.csv",
+          "encoding": "utf8"
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-00000000000d",
+      "name": "CSV-Text als Datei",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c14",
+              "leftValue": "={{ ($binary.Datei?.fileName ?? '').toLowerCase() }}",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              },
+              "rightValue": ".xlsx"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-00000000000e",
+      "name": "Excel-Datei?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        680,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "Datei",
+        "options": {
+          "headerRow": true
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-00000000000f",
+      "name": "Excel lesen",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "csv",
+        "binaryPropertyName": "Datei",
+        "options": {
+          "delimiter": ";",
+          "headerRow": true,
+          "encoding": "utf-8"
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-000000000010",
+      "name": "CSV lesen",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Zahlen bereinigen\nAus Dateien kommen Zahlen oft als Text (`18.450`). Hier wird daraus eine echte Zahl. Leere oder kaputte Zeilen fliegen im Filter raus. *Kennzahlen berechnen* zeigt, wie viele Zeilen gelesen und verwendet wurden.",
+        "height": 150,
+        "width": 440,
+        "color": 7
+      },
+      "id": "c5a00000-0000-4000-8000-000000000003",
+      "name": "Doku: Bereinigen",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "monat",
+              "value": "={{ String($json.monat ?? '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "ort",
+              "value": "={{ String($json.ort ?? '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "a3",
+              "name": "naechtigungen",
+              "value": "={{ typeof $json.naechtigungen === 'number' ? $json.naechtigungen : (String($json.naechtigungen ?? '').trim() === '' ? null : Number(String($json.naechtigungen).replace(/[.\\s]/g, '').replace(',', '.'))) }}",
+              "type": "number"
+            },
+            {
+              "id": "a4",
+              "name": "ankuenfte",
+              "value": "={{ typeof $json.ankuenfte === 'number' ? $json.ankuenfte : (String($json.ankuenfte ?? '').trim() === '' ? null : Number(String($json.ankuenfte).replace(/[.\\s]/g, '').replace(',', '.'))) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-000000000011",
+      "name": "Zahlen bereinigen",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f1",
+              "leftValue": "={{ $json.monat }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f2",
+              "leftValue": "={{ Number.isFinite($json.naechtigungen) && Number.isFinite($json.ankuenfte) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-000000000012",
+      "name": "Nur gültige Zeilen",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        1340,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Rechnen ohne KI\n**Summarize** addiert je Monat. **Aggregate** macht daraus Listen. **Kennzahlen berechnen** ermittelt Summe, Durchschnitt, Spitzen- und schwächsten Monat, Veränderung und Aufenthaltsdauer mit Ausdrücken. Jede Zahl ist nachprüfbar.",
+        "height": 150,
+        "width": 640,
+        "color": 6
+      },
+      "id": "c5a00000-0000-4000-8000-000000000004",
+      "name": "Doku: Rechnen",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "sum",
+              "field": "naechtigungen"
+            },
+            {
+              "aggregation": "sum",
+              "field": "ankuenfte"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "monat",
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-000000000013",
+      "name": "Summe je Monat",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "type": "simple",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "monat",
+              "order": "ascending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-000000000014",
+      "name": "Nach Monat sortieren",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateIndividualFields",
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "monat"
+            },
+            {
+              "fieldToAggregate": "sum_naechtigungen"
+            },
+            {
+              "fieldToAggregate": "sum_ankuenfte"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-000000000015",
+      "name": "Monate als Listen",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "quelle",
+              "value": "={{ $('Formular: Datei hochladen').isExecuted ? $('Formular: Datei hochladen').first().binary.Datei.fileName : $('CSV-Text als Datei').first().binary.Datei.fileName }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "zeilen_gelesen",
+              "value": "={{ $('Zahlen bereinigen').all().length }}",
+              "type": "number"
+            },
+            {
+              "id": "a3",
+              "name": "zeilen_verwendet",
+              "value": "={{ $('Nur gültige Zeilen').all().length }}",
+              "type": "number"
+            },
+            {
+              "id": "a4",
+              "name": "monate_anzahl",
+              "value": "={{ $json.monat.length }}",
+              "type": "number"
+            },
+            {
+              "id": "a5",
+              "name": "naechtigungen_gesamt",
+              "value": "={{ $json.sum_naechtigungen.reduce((a, b) => a + b, 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "a6",
+              "name": "ankuenfte_gesamt",
+              "value": "={{ $json.sum_ankuenfte.reduce((a, b) => a + b, 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "a7",
+              "name": "durchschnitt_je_monat",
+              "value": "={{ Math.round($json.sum_naechtigungen.reduce((a, b) => a + b, 0) / $json.sum_naechtigungen.length) }}",
+              "type": "number"
+            },
+            {
+              "id": "a8",
+              "name": "spitzenmonat",
+              "value": "={{ $json.monat[$json.sum_naechtigungen.indexOf(Math.max(...$json.sum_naechtigungen))] }}",
+              "type": "string"
+            },
+            {
+              "id": "a9",
+              "name": "spitzenwert",
+              "value": "={{ Math.max(...$json.sum_naechtigungen) }}",
+              "type": "number"
+            },
+            {
+              "id": "a10",
+              "name": "schwaechster_monat",
+              "value": "={{ $json.monat[$json.sum_naechtigungen.indexOf(Math.min(...$json.sum_naechtigungen))] }}",
+              "type": "string"
+            },
+            {
+              "id": "a11",
+              "name": "schwaechster_wert",
+              "value": "={{ Math.min(...$json.sum_naechtigungen) }}",
+              "type": "number"
+            },
+            {
+              "id": "a12",
+              "name": "veraenderung_erster_letzter_monat_prozent",
+              "value": "={{ Math.round((($json.sum_naechtigungen[$json.sum_naechtigungen.length - 1] - $json.sum_naechtigungen[0]) / $json.sum_naechtigungen[0]) * 1000) / 10 }}",
+              "type": "number"
+            },
+            {
+              "id": "a13",
+              "name": "aufenthaltsdauer_naechte",
+              "value": "={{ Math.round(($json.sum_naechtigungen.reduce((a, b) => a + b, 0) / $json.sum_ankuenfte.reduce((a, b) => a + b, 0)) * 100) / 100 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "all",
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-000000000016",
+      "name": "Kennzahlen berechnen",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2220,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## KI formuliert nur\nDie KI bekommt **ausschließlich** die fertigen Kennzahlen, nicht die Rohdatei. Sie darf nichts neu rechnen und keine Gründe erfinden. Braucht das **KI-Credential** aus der Tabelle in `CLAUDE.md` im Modell-Knoten.\n\nOhne Schlüssel: die Knoten *Einordnung formulieren (KI)* und *Claude (Anthropic)* deaktivieren, das Diagramm entsteht trotzdem. Schlägt die KI während eines Laufs fehl (zum Beispiel weil das Limit erreicht ist), läuft der Workflow weiter und die Ergebnisseite zeigt „Keine KI-Einordnung erzeugt.“",
+        "height": 250,
+        "width": 440,
+        "color": 3
+      },
+      "id": "c5a00000-0000-4000-8000-000000000005",
+      "name": "Doku: KI",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2440,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Fertig berechnete Kennzahlen aus der Datei „{{ $json.quelle }}“ (Nächtigungen je Monat):\n\n{{ JSON.stringify({ monate: $json.monat, naechtigungen_je_monat: $json.sum_naechtigungen, naechtigungen_gesamt: $json.naechtigungen_gesamt, durchschnitt_je_monat: $json.durchschnitt_je_monat, spitzenmonat: $json.spitzenmonat, spitzenwert: $json.spitzenwert, schwaechster_monat: $json.schwaechster_monat, schwaechster_wert: $json.schwaechster_wert, veraenderung_erster_letzter_monat_prozent: $json.veraenderung_erster_letzter_monat_prozent, aufenthaltsdauer_naechte: $json.aufenthaltsdauer_naechte }, null, 2) }}\n\nSchreib eine kurze Einordnung für das Team.",
+        "messages": {
+          "messageValues": [
+            {
+              "type": "SystemMessagePromptTemplate",
+              "message": "Du formulierst Einordnungen zu Kennzahlen eines Reiseveranstalters auf Deutsch, in du-Form, in 3 bis 4 Sätzen. Regeln: Verwende nur Zahlen, die wörtlich im JSON stehen. Rechne nichts neu und runde nicht anders. Nenne keine Ursachen, Vergleiche oder Vorjahreswerte, die nicht im JSON stehen. Wenn eine Aussage aus den Zahlen nicht ableitbar ist, lass sie weg. Schreib Zahlen mit Punkt als Tausendertrennzeichen und nenne am Ende den Dateinamen in Klammern."
+            }
+          ]
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-000000000017",
+      "name": "Einordnung formulieren (KI)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2460,
+        60
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-opus-5",
+          "cachedResultName": "Claude Opus 5"
+        },
+        "options": {
+          "maxTokensToSample": 4096
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-000000000018",
+      "name": "Claude (Anthropic)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        2460,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "chartType": "bar",
+        "labelsMode": "array",
+        "labelsArray": "={{ $('Kennzahlen berechnen').first().json.monat }}",
+        "data": "={{ $('Kennzahlen berechnen').first().json.sum_naechtigungen }}",
+        "output": "diagramm",
+        "chartOptions": {
+          "format": "png",
+          "width": 800,
+          "height": 450,
+          "backgroundColor": "white"
+        },
+        "datasetOptions": {
+          "label": "Nächtigungen je Monat",
+          "backgroundColor": "#2f6f8f"
+        }
+      },
+      "id": "c5a00000-0000-4000-8000-000000000019",
+      "name": "Diagramm erstellen (QuickChart)",
+      "type": "n8n-nodes-base.quickChart",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c26",
+              "leftValue": "={{ $('Formular: Datei hochladen').isExecuted }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-00000000001a",
+      "name": "Kam die Datei aus dem Formular?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2920,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "returnBinary",
+        "completionTitle": "Deine Auswertung",
+        "completionMessage": "={{ $('Einordnung formulieren (KI)').first().json.text ?? 'Keine KI-Einordnung erzeugt.' }}\n\nSumme: {{ $('Kennzahlen berechnen').first().json.naechtigungen_gesamt }} Nächtigungen in {{ $('Kennzahlen berechnen').first().json.monate_anzahl }} Monaten (Datei: {{ $('Kennzahlen berechnen').first().json.quelle }}, {{ $('Kennzahlen berechnen').first().json.zeilen_verwendet }} von {{ $('Kennzahlen berechnen').first().json.zeilen_gelesen }} Zeilen verwendet).",
+        "inputDataFieldName": "diagramm",
+        "options": {}
+      },
+      "id": "c5a00000-0000-4000-8000-00000000001b",
+      "name": "Ergebnis im Formular zeigen",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        3160,
+        -40
+      ],
+      "webhookId": "c5a00000-0000-4000-8000-00000000f002"
+    },
+    {
+      "parameters": {},
+      "id": "c5a00000-0000-4000-8000-00000000001c",
+      "name": "Ergebnis ansehen (Testlauf)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        3160,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Ausgabe\nAus dem Formular: Die Ergebnisseite zeigt Einordnung und Summe und liefert das Diagramm als PNG. Beim Testlauf per Klick: Diagramm im Knoten *Diagramm erstellen* unter **Binary** ansehen, Zahlen in *Kennzahlen berechnen*.",
+        "height": 170,
+        "width": 440,
+        "color": 7
+      },
+      "id": "c5a00000-0000-4000-8000-000000000006",
+      "name": "Doku: Ausgabe",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2920,
+        -240
+      ]
+    }
+  ],
+  "connections": {
+    "Formular: Datei hochladen": {
+      "main": [
+        [
+          {
+            "node": "Excel-Datei?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start: Beispieldaten testen": {
+      "main": [
+        [
+          {
+            "node": "Beispiel-CSV (erfunden)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Beispiel-CSV (erfunden)": {
+      "main": [
+        [
+          {
+            "node": "CSV-Text als Datei",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CSV-Text als Datei": {
+      "main": [
+        [
+          {
+            "node": "Excel-Datei?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Excel-Datei?": {
+      "main": [
+        [
+          {
+            "node": "Excel lesen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CSV lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Excel lesen": {
+      "main": [
+        [
+          {
+            "node": "Zahlen bereinigen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CSV lesen": {
+      "main": [
+        [
+          {
+            "node": "Zahlen bereinigen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zahlen bereinigen": {
+      "main": [
+        [
+          {
+            "node": "Nur gültige Zeilen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nur gültige Zeilen": {
+      "main": [
+        [
+          {
+            "node": "Summe je Monat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summe je Monat": {
+      "main": [
+        [
+          {
+            "node": "Nach Monat sortieren",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nach Monat sortieren": {
+      "main": [
+        [
+          {
+            "node": "Monate als Listen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monate als Listen": {
+      "main": [
+        [
+          {
+            "node": "Kennzahlen berechnen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kennzahlen berechnen": {
+      "main": [
+        [
+          {
+            "node": "Einordnung formulieren (KI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Einordnung formulieren (KI)": {
+      "main": [
+        [
+          {
+            "node": "Diagramm erstellen (QuickChart)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diagramm erstellen (QuickChart)": {
+      "main": [
+        [
+          {
+            "node": "Kam die Datei aus dem Formular?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kam die Datei aus dem Formular?": {
+      "main": [
+        [
+          {
+            "node": "Ergebnis im Formular zeigen",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ergebnis ansehen (Testlauf)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude (Anthropic)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Einordnung formulieren (KI)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  }
+}

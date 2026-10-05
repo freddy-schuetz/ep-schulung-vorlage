@@ -1,0 +1,29 @@
+# Secrets: NIEMALS committen
+# Hinweis: .mcp.json wird BEWUSST committet. In der Vorlage steht der Platzhalter TOKEN-FEHLT.
+# Der Betreiber trägt je Repo eine Verbindungs-URL mit Token ein. Der n8n-API-Key bleibt beim Hub,
+# die URL wirkt aber wie ein Passwort: Repo privat lassen und den Token nirgends hineinkopieren.
+.env
+.env.local
+.env*.local
+
+# Dependencies / Build
+node_modules/
+.next/
+out/
+dist/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Claude Code lokal
+.claude/settings.local.json
+backup/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TypeScript: inkrementelle Build-Info nie mitliefern.
+# Nixpacks hängt sonst einen Cache-Ordner auf diese Datei, der Build bricht ab.
+*.tsbuildinfo
