@@ -36,13 +36,13 @@ Alle Beispiele in dieser Datei nutzen die erfundene Person Anna (Kürzel `Anna`,
 | Phase | Modus | Zeitdeckel | Ergebnis |
 |---|---|---|---|
 | 1. Idee klären (Skill `idee-klaeren`) | normal | 20 Min. | Steckbrief `mein-use-case.md`, committet und auf `main` gepusht |
-| 2. Plan prüfen (Skill `grill-me`, höchstens 5 Fragen) | Plan | 15 Min. | freigegebener Bauplan |
+| 2. Plan prüfen (Skill `grill-me`, so viele Fragen wie nötig) | Plan | 15 Min. | freigegebener Bauplan |
 | 3. Bauen und testen | nach der Freigabe | 40 Min. | ein Lauf mit Testdaten, Ergebnis inhaltlich geprüft |
 | 4. Fertig machen | normal | 10 Min. | Sticky Notes, Security-Blick, Export nach `workflows/`, Push auf `main` |
 
 - **Klein zuschneiden.** Ziel ist ein Ablauf, der heute einmal sauber läuft. Alles andere kommt als „Nächster Schritt“ in den Steckbrief.
 - **Phase 1 läuft im normalen Modus**, weil der Planmodus das Speichern sperrt. Ist der Steckbrief auf `main`, sagst du: „Stell jetzt neben dem Eingabefeld auf Plan und schreib: Grill mich zu meinem Steckbrief.“
-- **Phase 2 im Planmodus:** nichts speichern, nichts in n8n anlegen. Nachschlagen ist erlaubt. Nach höchstens fünf Fragen legst du den Bauplan vor: Ziel, Auslöser, Schritte, Zugänge aus der Tabelle unten, Namen mit Kürzel, Testdaten, Testweg, erwartetes Ergebnis. Die Person gibt ihn frei.
+- **Phase 2 im Planmodus:** nichts speichern, nichts in n8n anlegen. Nachschlagen ist erlaubt. Du stellst so viele Fragen wie nötig, eine nach der anderen. Danach legst du den Bauplan vor: Ziel, Auslöser, Schritte, Zugänge aus der Tabelle unten, Namen mit Kürzel, Testdaten, Testweg, erwartetes Ergebnis. Die Person gibt ihn frei.
 - **Phase 3:** bauen (Standard-Prozess unten), validieren, einmal testen, Ergebnis prüfen.
 - **Phase 4:** eine Übersichts-Sticky und höchstens zwei weitere (Skill `n8n-dokumentation`), Security-Blick, Export, Push. Einen Prüfbericht schreibst du nur, wenn die Person ihn will.
 - **Zeit im Blick:** Läuft eine Phase mehr als fünf Minuten über ihren Deckel, schlägst du von dir aus vor, den Umfang zu kürzen. Gibt es nach 30 Minuten Bauzeit noch keinen Testlauf, kürzt du auf den ersten Schritt.

@@ -16,7 +16,7 @@ Dein Projekt für die Schulung bei E&P Reisen. Hier liegen deine Ergebnisse: dei
 2. Schreib die erste Nachricht: **KUERZEL: Los geht's**
 3. Claude begrüßt dich und prüft die Verbindung. Steht da „Deine n8n ist verbunden“, passt alles.
 4. Schreib: **Hilf mir, meine Idee zu klären.** Claude stellt dir Fragen, immer eine nach der anderen. Am Ende steht dein Steckbrief.
-5. Stell neben dem Eingabefeld auf **Plan** und schreib: **Grill mich zu meinem Steckbrief.** Claude stellt höchstens fünf Fragen und zeigt dir dann den Bauplan.
+5. Stell neben dem Eingabefeld auf **Plan** und schreib: **Grill mich zu meinem Steckbrief.** Claude stellt so viele Fragen wie nötig und zeigt dir dann den Bauplan.
 6. Passt der Plan, gibst du ihn frei. Claude baut deinen Ablauf in n8n und testet ihn mit Testdaten.
 7. Schau dir das Ergebnis an. Passt etwas nicht, sag es in normalen Worten.
 

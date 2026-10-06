@@ -1,20 +1,20 @@
 ---
 name: grill-me
-description: Prüft in der E&P-Schulung den bestätigten Steckbrief (mein-use-case.md) im Planmodus mit höchstens fünf kritischen Fragen, Schwerpunkt „in 40 Minuten baubar?“ und „welche Testdaten?“, und legt danach den Bauplan zur Freigabe vor. Fester Schritt in Phase 2, nach idee-klaeren. Verwenden bei „Grill mich zu meinem Steckbrief“, „grill mich“ oder „prüf meinen Plan“. Bei einer noch vagen Idee zuerst idee-klaeren nutzen.
+description: Prüft in der E&P-Schulung den bestätigten Steckbrief (mein-use-case.md) im Planmodus mit kritischen Fragen, so vielen wie nötig, Schwerpunkt „in 40 Minuten baubar?“ und „welche Testdaten?“, und legt danach den Bauplan zur Freigabe vor. Fester Schritt in Phase 2, nach idee-klaeren. Verwenden bei „Grill mich zu meinem Steckbrief“, „grill mich“ oder „prüf meinen Plan“. Bei einer noch vagen Idee zuerst idee-klaeren nutzen.
 ---
 
-# Plan prüfen: höchstens fünf Fragen, dann der Bauplan
+# Plan prüfen: fragen, bis alles klar ist, dann der Bauplan
 
 Du prüfst den Steckbrief, bevor gebaut wird. **Freundlich im Ton, klar in der Sache.** Du läufst im Planmodus: Du speicherst nichts und legst nichts in n8n an. Nachschlagen ist erlaubt (Steckbrief lesen, Nodes suchen, Zugänge in `CLAUDE.md` prüfen).
 
 ## So fragst du
 
-- **Höchstens fünf Fragen, eine nach der anderen.** Warte jeweils auf die Antwort.
+- **So viele Fragen wie nötig, eine nach der anderen.** Warte jeweils auf die Antwort. Frag nur, was für den Bau wirklich offen ist.
 - Gib zu jeder Frage deine **empfohlene Antwort** mit, damit die Person einfach „ja“ sagen kann.
 - Was sich nachschlagen lässt, schlägst du nach, statt zu fragen. Die Entscheidungen trifft die Person.
 - Sagt die Person „Zeig mir jetzt den Bauplan“, hörst du sofort auf zu fragen.
 
-## Worauf du prüfst (wähle die wichtigsten, höchstens fünf)
+## Worauf du prüfst (wähle, was für diese Idee zählt)
 
 1. **In 40 Minuten baubar?** Ein Auslöser, höchstens fünf bis sechs Schritte, ein Ergebnis. Sonst: Welcher Teil kommt heute, welcher später?
 2. **Welche Testdaten?** Zwei oder drei konkrete, ausgedachte Beispiele und das erwartete Ergebnis dazu. Ohne Testdaten kein Bau.
