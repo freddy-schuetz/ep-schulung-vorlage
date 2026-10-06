@@ -32,16 +32,16 @@ Jede Oberfläche der Schulung sieht aus wie ep-reisen.de und das EP-Budget-Tool.
 | `app/globals.css` | Farben, eckige Formen und die Bausteine `ep-…` |
 | `app/fonts/` | Schrift Lato, im Projekt abgelegt, damit der Build ohne Internet klappt |
 | `public/ep-logo.svg` | das E&P-Logo, nur auf hellem Grund |
-| `lib/app.ts` | Name der Oberfläche im Kopf und im Browser-Tab, zum Beispiel `"Hotel-Steckbriefe"` |
+| `lib/app.ts` | Name der Oberfläche im Kopf und im Browser-Tab, zum Beispiel `"Sportclubs bei Google"` |
 
 **Bausteine:** `ep-ueberschrift` (Seitentitel mit Zierstrich), `ep-karte` (weiße Fläche für Formular oder Ergebnis), `ep-label`, `ep-feld` (Eingabe, Auswahl, Textfeld), `ep-knopf` (Knopf in Tiefblau), `ep-cta` (zusätzlich, nur für die eine Hauptaktion: Magenta-Verlauf), `ep-hinweis` (hellblauer Ergebniskasten), `ep-fehler`, `ep-tabelle`, `arrow-list`.
 **Farben als Tailwind-Klassen:** `bg-ground` (Seitengrund), `bg-surface` (Weiß), `text-ink`, `text-ink-muted`, `text-accent` und `bg-accent` (Tiefblau), `border-hairline`, `text-fehler`.
 
 ```tsx
-<h1 className="ep-ueberschrift text-3xl">Hotel-Steckbriefe</h1>
+<h1 className="ep-ueberschrift text-3xl">Sportclubs bei Google</h1>
 <form className="ep-karte mt-6 flex flex-col gap-3">
-  <label htmlFor="hotel" className="ep-label">Hotel</label>
-  <input id="hotel" className="ep-feld" />
+  <label htmlFor="sportclub" className="ep-label">Sportclub</label>
+  <input id="sportclub" className="ep-feld" />
   <button type="submit" className="ep-knopf ep-cta self-start">Angaben holen</button>
 </form>
 <div className="ep-hinweis mt-6">Ergebnis …</div>

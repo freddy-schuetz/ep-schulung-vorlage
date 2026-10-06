@@ -34,7 +34,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 - Body als JSON, eine Liste mit einer Aufgabe:
 
   ```json
-  [{ "keyword": "Hotel Beispielhof Saalbach", "location_name": "Austria", "language_code": "de" }]
+  [{ "keyword": "Sportclub Lederer Saalbach", "location_name": "Austria", "language_code": "de" }]
   ```
 
 - **Land je Ziel setzen.** Ohne `location_name` sucht der Dienst in Deutschland. Werte zum Beispiel `Germany`, `Austria`, `Switzerland`, `Italy`, `France`. Den Ort nennst du zusätzlich im `keyword`. Sonst trifft der Dienst bei gleichnamigen Betrieben den falschen und meldet keinen Fehler.
@@ -57,7 +57,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 | Tripadvisor (Hotels, Restaurants, Ausflugsziele) | `maxcopell~tripadvisor` | `maxItemsPerQuery` |
 | Booking.com (Unterkünfte, Preise) | `voyager~booking-scraper` | `maxItems` im Body; Preise nur mit `checkIn`, `checkOut`, `adults` und `rooms` |
 
-- Beispiel Google Maps: `{ "searchStringsArray": ["Skiverleih"], "locationQuery": "Garmisch-Partenkirchen, Germany", "maxCrawledPlacesPerSearch": 1, "language": "de" }`
+- Beispiel Google Maps: `{ "searchStringsArray": ["Skiverleih"], "locationQuery": "Saalbach-Hinterglemm, Austria", "maxCrawledPlacesPerSearch": 1, "language": "de" }`
 - Beispiel Website: `{ "startUrls": [{ "url": "https://…" }], "maxCrawlPages": 1, "maxCrawlDepth": 0, "proxyConfiguration": { "useApifyProxy": true } }`
 - **Bekannter Betrieb oder Suche?** Einen bekannten Betrieb schlägst du mit DataForSEO nach. Apify nimmst du, um Betriebe nach Art und Ort zu finden.
 - Vor dem ersten Lauf im Apify Store nachsehen: volle Kennung mit Benutzername (es gibt Nachbauten), Name des Mengenfelds, keine monatliche Miete („rental“).
@@ -73,7 +73,7 @@ description: Kurzanleitungen für die fertigen Zugänge der E&P-n8n in der Schul
 
 ## Google-Suche über SerpAPI
 
-- Für Treffer aus Google, etwa „Skiverleih in Saalbach“ oder die Angaben eines bekannten Hotels.
+- Für Treffer aus Google, etwa „Skiverleih in Saalbach“ oder die Angaben eines der eigenen Sportclubs.
 - Am einfachsten als Werkzeug am AI Agent: Node „SerpAPI“ (`@n8n/n8n-nodes-langchain.toolSerpApi`), Credential „SerpAPI account“, Verbindung über `ai_tool`. Der Agent entscheidet dann selbst, wann er sucht. Vorher mit `search_nodes` und `get_node` prüfen, wie der Node heißt und welche Felder er hat.
 - Land und Sprache mitgeben (zum Beispiel `gl=at`, `hl=de`), sonst sucht er womöglich im falschen Land.
 - ⚠️ **Jede Suche kostet Geld.** Zuerst eine einzige Suche testen. Keine Schleife über eine Tabelle ohne Obergrenze.
