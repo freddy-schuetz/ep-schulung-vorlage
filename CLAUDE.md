@@ -106,12 +106,13 @@ Absender für Mails (Feld „From Email“ im Node „Send Email“): `KI-Schulu
 
 ## Standard-Prozess beim Bauen
 
-1. Nodes finden: `search_nodes`, dann `get_node` mit `detail: "standard"` (bei Bedarf `includeExamples: true`). Im Zweifel einmal `tools_documentation()`.
-2. Anlegen wie unter „Kürzel und Namen“, dann schrittweise erweitern mit `n8n_update_partial_workflow` und `intent`, mehrere Änderungen in einem Aufruf.
-3. Prüfen: `n8n_validate_workflow` mit Profil `runtime`, danach `n8n_autofix_workflow`.
-4. Testen wie unten, dann Phase 4.
+1. **Erst nach einer Vorlage suchen:** `search_templates` mit zwei, drei Stichworten zur Idee. Passt eine gut, legst du sie mit `n8n_deploy_template` und `name: "Anna: …"` an und sortierst sie in den eigenen Ordner (siehe „Kürzel und Namen“). Bevor du testest oder aktivierst, setzt du die Zugänge aus der Tabelle oben ein, entfernst Schritte mit Diensten, die es hier nicht gibt, und änderst alle Webhook- und Formularpfade auf das Kürzel. Den Autor der Vorlage nennst du der Person. Passt keine, baust du selbst.
+2. **Nodes finden:** `search_nodes`, dann `get_node` mit `detail: "standard"`, bei Bedarf `includeExamples: true`. `detail: "full"` nimmst du nicht, es kostet viel und bringt selten mehr. Im Zweifel einmal `tools_documentation()`.
+3. **Anlegen und erweitern:** wie unter „Kürzel und Namen“, dann schrittweise mit `n8n_update_partial_workflow` und `intent`, mehrere Änderungen in einem Aufruf.
+4. **Prüfen:** `n8n_validate_workflow` mit Profil `runtime`, danach `n8n_autofix_workflow`.
+5. **Testen** wie unten, dann Phase 4.
 
-Führ das selbstständig durch und frag nicht für jeden Schritt um Erlaubnis. Danach sagst du kurz und verständlich, was gebaut und getestet ist. Code-Nodes nimmst du nur, wenn kein Standard-Node passt. Parameter, die das Verhalten steuern, setzt du ausdrücklich.
+Führ das selbstständig durch und frag nicht für jeden Schritt um Erlaubnis. Danach sagst du kurz und verständlich, was gebaut und getestet ist. Code-Nodes nimmst du nur, wenn kein Standard-Node passt. Parameter, die das Verhalten steuern, setzt du ausdrücklich. Parameter, die für die gewählte Operation nicht gelten, lässt du weg (`validate_node` meldet sie als „won't be used“).
 
 ## Testen
 
@@ -179,10 +180,12 @@ Der KI-Chat im Starter (`/chat`) hat keinen Login. Schalte ihn nie mit einem ech
 - **nodeType:** Such- und Prüfwerkzeuge `nodes-base.slack`, Workflow-Werkzeuge `n8n-nodes-base.slack`, KI-Nodes `@n8n/n8n-nodes-langchain.agent`.
 - **Webhook-Daten liegen unter `.body`:** `{{$json.body.email}}`, nicht `{{$json.email}}`.
 - **Expressions** mit `{{ }}`, in Code-Nodes ohne. Node-Namen mit Leerzeichen in Quotes: `{{$node["HTTP Request"].json.data}}`. Groß- und Kleinschreibung zählt.
-- **IF-Node:** zwei Ausgänge, also `branch: "true"` oder `branch: "false"` setzen. Switch: `case: 0`, `case: 1`.
-- **addConnection** mit vier Strings: `{type: "addConnection", source: "Webhook", target: "Send Email", sourcePort: "main", targetPort: "main"}`. `removeConnection` genauso.
+- **IF-Node:** zwei Ausgänge, also `branch: "true"` oder `branch: "false"` setzen. Ohne `branch` landen beide Verbindungen am selben Ausgang. Switch: `case: 0`, `case: 1`.
+- **addConnection** mit vier Strings: `{type: "addConnection", source: "Webhook", target: "Send Email", sourcePort: "main", targetPort: "main"}`. Falsch sind ein Objekt (`connection: {source: {…}}`) und ein zusammengesetzter Text wie `"Webhook:main:0"`. `removeConnection` genauso.
 - **KI-Verbindungen** mit `sourceOutput`: `ai_languageModel`, `ai_tool`, `ai_memory`, `ai_embedding`, `ai_vectorStore`, `ai_outputParser`, `ai_document`, `ai_textSplitter`.
-- **Tools am Agent:** Der Node-Name wird zum Funktionsnamen, also nur Buchstaben, Ziffern und Unterstrich. Sub-Nodes laufen nur über den Agent, getestet wird über den Chat. Für HTTP als Tool `n8n-nodes-base.httpRequestTool` mit `$fromAI(...)` nehmen.
+- **Tools am Agent:** Als `ai_tool` hängst du immer die Tool-Variante eines Nodes an, ihr Typ endet auf `Tool` (etwa `n8n-nodes-base.httpRequestTool`, `get_node` nennt sie unter `toolVariantInfo`). Gibt es keine Tool-Variante, nimmst du `httpRequestTool` mit `$fromAI(...)` oder planst ohne dieses Werkzeug. Der Node-Name wird zum Funktionsnamen, also nur Buchstaben, Ziffern und Unterstrich. Sub-Nodes laufen nur über den Agent, getestet wird über den Chat.
+- **Daten früherer Schritte:** `$json` enthält nur die Daten des direkten Vorgängers. Ein Feld aus einem früheren Schritt holst du mit `{{ $('Name des Schritts').item.json.feld }}`, in Code-Nodes mit `$('Name des Schritts').all()`.
+- **Keine Schleife nötig:** n8n führt jeden Schritt für jeden Eintrag einzeln aus. Den Node „Loop Over Items“ brauchst du nur, wenn ein Dienst langsamer abgefragt werden muss oder nur einen Eintrag je Aufruf verträgt.
 
 ## Skills
 
